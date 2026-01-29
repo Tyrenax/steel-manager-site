@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  /* Couleurs personnalisées Steel Manager */
+  --color-steel-blue: #476bde;
+  --color-steel-green: #00d6bf;
+  --color-steel-gray: #4c4148;
+  --color-gradient-start: #c7d8ff;
+  --color-gradient-end: #ffffff;
+}
+
+/* Dégradé de fond personnalisé */
+.bg-steel-gradient {
+  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+}
