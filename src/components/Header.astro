@@ -12,51 +12,64 @@ const navItems = [
 ];
 ---
 
-<header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm transition-all duration-300">
+<header class="glass sticky top-0 z-50 transition-all duration-500" id="main-header">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="flex justify-between items-center h-20 md:h-24">
       <!-- Logo Steel Manager -->
-      <a href="/" class="flex items-center gap-3">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="22" cy="22" r="20" fill="url(#logoGrad)" />
-          <path d="M22 10 L22 34 M14 18 L22 10 L30 18" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <defs>
-            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#00d6bf"/>
-              <stop offset="100%" stop-color="#476bde"/>
-            </linearGradient>
-          </defs>
-        </svg>
-        <div>
-          <div class="flex items-baseline">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative">
+          <!-- Glow effect behind logo -->
+          <div class="absolute inset-0 bg-gradient-to-br from-[#00d6bf] to-[#476bde] rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative z-10 transition-transform duration-500 group-hover:scale-110">
+            <circle cx="22" cy="22" r="20" fill="url(#logoGrad)" />
+            <path d="M22 10 L22 34 M14 18 L22 10 L30 18" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00d6bf"/>
+                <stop offset="100%" stop-color="#476bde"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="overflow-hidden">
+          <div class="flex items-baseline transform transition-transform duration-500 group-hover:translate-x-1">
             <span class="text-[#476bde] font-bold text-2xl tracking-tight">Steel</span>
             <span class="text-[#00d6bf] font-bold text-2xl tracking-tight">Manager</span>
           </div>
-          <div class="text-[11px] text-gray-400 tracking-wide">Custom development</div>
+          <div class="text-[11px] text-gray-400 tracking-widest uppercase font-medium">Custom development</div>
         </div>
       </a>
 
       <!-- Navigation Desktop -->
-      <nav class="hidden lg:flex items-center gap-10">
+      <nav class="hidden lg:flex items-center gap-8">
         {navItems.map((item) => (
           <div class="relative group">
             <a
               href={item.href}
-              class="flex items-center gap-1.5 text-[#476bde] hover:text-[#00d6bf] font-medium text-base transition-colors py-3"
+              class="flex items-center gap-1.5 text-[#476bde] font-medium text-base py-3 relative overflow-hidden"
             >
-              {item.label}
+              <span class="relative z-10 transition-colors duration-300 group-hover:text-[#00d6bf]">{item.label}</span>
               {item.hasDropdown && (
-                <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 transition-all duration-300 group-hover:rotate-180 group-hover:text-[#00d6bf]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
               )}
+              <!-- Underline animation -->
+              <span class="absolute bottom-2 left-0 w-full h-0.5 bg-gradient-to-r from-[#476bde] to-[#00d6bf] transform origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
             </a>
             {item.submenu && (
-              <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div class="w-56 bg-white rounded-xl shadow-2xl border border-gray-100 py-2">
-                  {item.submenu.map((sub) => (
-                    <a href={`#${sub.toLowerCase().replace(/\s+/g, '-')}`} class="block px-5 py-3 text-[#4c4148] hover:bg-gray-50 hover:text-[#476bde] text-sm font-medium transition-colors">
-                      {sub}
+              <div class="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                <div class="w-64 glass rounded-2xl shadow-premium py-3 overflow-hidden">
+                  <!-- Gradient accent line -->
+                  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#476bde] to-[#00d6bf]"></div>
+                  {item.submenu.map((sub, idx) => (
+                    <a
+                      href={`#${sub.toLowerCase().replace(/\s+/g, '-')}`}
+                      class="flex items-center gap-3 px-5 py-3 text-[#4c4148] hover:bg-gradient-to-r hover:from-[#476bde]/5 hover:to-[#00d6bf]/5 text-sm font-medium transition-all duration-300 group/item"
+                      style={`animation-delay: ${idx * 50}ms`}
+                    >
+                      <span class="w-2 h-2 rounded-full bg-[#00d6bf] transform scale-0 group-hover/item:scale-100 transition-transform duration-300"></span>
+                      <span class="group-hover/item:text-[#476bde] transition-colors duration-300">{sub}</span>
                     </a>
                   ))}
                 </div>
@@ -67,15 +80,20 @@ const navItems = [
       </nav>
 
       <!-- CTA Button Desktop -->
-      <a
-        href="#contact"
-        class="hidden lg:inline-flex bg-[#00d6bf] text-white px-7 py-3 rounded-full text-base font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
-      >
-        Planifier un rendez-vous
-      </a>
+      <div class="hidden lg:block magnetic-wrap">
+        <a
+          href="#contact"
+          class="btn-premium inline-flex items-center gap-2 bg-[#00d6bf] text-white px-7 py-3.5 rounded-full text-base font-semibold shadow-glow-teal"
+        >
+          <span>Planifier un rendez-vous</span>
+          <svg class="w-5 h-5 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
 
       <!-- Mobile menu button -->
-      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-[#476bde] hover:bg-gray-100" aria-label="Menu">
+      <button id="mobile-menu-btn" class="lg:hidden p-3 rounded-xl text-[#476bde] hover:bg-[#476bde]/10 transition-colors duration-300" aria-label="Menu">
         <svg id="menu-open" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -87,27 +105,55 @@ const navItems = [
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="lg:hidden hidden bg-white border-t">
+  <div id="mobile-menu" class="lg:hidden hidden bg-white/95 backdrop-blur-xl border-t border-gray-100">
     <div class="px-6 py-6 space-y-2">
-      {navItems.map((item) => (
-        <a href={item.href} class="flex items-center justify-between px-4 py-4 text-[#4c4148] hover:text-[#476bde] hover:bg-gray-50 rounded-xl text-lg font-medium">
+      {navItems.map((item, index) => (
+        <a
+          href={item.href}
+          class="flex items-center justify-between px-4 py-4 text-[#4c4148] hover:text-[#476bde] hover:bg-gradient-to-r hover:from-[#476bde]/5 hover:to-[#00d6bf]/5 rounded-xl text-lg font-medium transition-all duration-300"
+          style={`animation-delay: ${index * 100}ms`}
+        >
           {item.label}
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-[#00d6bf]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </a>
       ))}
-      <a href="#contact" class="block w-full text-center bg-[#00d6bf] text-white px-6 py-4 rounded-full font-semibold text-lg mt-4">
-        Planifier un rendez-vous
-      </a>
+      <div class="pt-4">
+        <a href="#contact" class="btn-premium flex items-center justify-center gap-2 w-full bg-[#00d6bf] text-white px-6 py-4 rounded-full font-semibold text-lg shadow-glow-teal">
+          <span>Planifier un rendez-vous</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
     </div>
   </div>
 </header>
 
 <script>
+  // Mobile menu toggle
   document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
     document.getElementById('mobile-menu')?.classList.toggle('hidden');
     document.getElementById('menu-open')?.classList.toggle('hidden');
     document.getElementById('menu-close')?.classList.toggle('hidden');
   });
+
+  // Header scroll effect - add shadow on scroll
+  const header = document.getElementById('main-header');
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+
+    if (header) {
+      if (currentScroll > 50) {
+        header.classList.add('shadow-premium');
+      } else {
+        header.classList.remove('shadow-premium');
+      }
+    }
+
+    lastScroll = currentScroll;
+  }, { passive: true });
 </script>
