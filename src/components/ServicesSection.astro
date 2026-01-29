@@ -1,24 +1,29 @@
 ---
 const services = [
-  { title: 'Développement de logiciels industriels', image: '/images/6.png' },
-  { title: 'Développement mobile', image: '/images/7.png' },
-  { title: 'Analyse et accompagnement', image: '/images/8.png' },
-  { title: 'Intelligence artificielle', image: '/images/9.png' }
+  { title: 'Développement de logiciels industriels', image: '/images/6.png', delay: 0 },
+  { title: 'Développement mobile', image: '/images/7.png', delay: 100 },
+  { title: 'Analyse et accompagnement', image: '/images/8.png', delay: 200 },
+  { title: 'Intelligence artificielle', image: '/images/9.png', delay: 300 }
 ];
 ---
 
-<section id="services" class="px-3 lg:px-4">
+<section id="services" class="px-3 lg:px-4 py-4">
   <div class="max-w-[1400px] mx-auto">
-    <div class="grid grid-cols-2 gap-1 md:gap-1.5">
-      {services.map((service) => (
-        <div class="relative rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer aspect-[16/9]">
+    <div class="grid grid-cols-2 gap-1.5 md:gap-2">
+      {services.map((service, index) => (
+        <div
+          class="relative rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer aspect-[16/9]"
+          data-aos="zoom-in"
+          data-aos-duration="600"
+          data-aos-delay={service.delay}
+        >
           <img
             src={service.image}
             alt={service.title}
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
           />
           <div class="absolute inset-0 flex items-center justify-center px-4 md:px-8">
-            <h3 class="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold text-center leading-tight drop-shadow-lg">
+            <h3 class="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold text-center leading-tight drop-shadow-xl transform group-hover:scale-105 transition-transform duration-300">
               {service.title}
             </h3>
           </div>
