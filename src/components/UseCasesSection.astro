@@ -15,47 +15,71 @@ const useCases = [
 ];
 ---
 
-<section id="realisations" class="py-16 px-4 sm:px-6 lg:px-8 bg-white/50">
+<section id="realisations" class="py-16 md:py-24 px-6 lg:px-8 bg-gradient-to-b from-white/80 to-white/40">
   <div class="max-w-7xl mx-auto">
-    <!-- Titre -->
-    <div class="mb-12">
-      <h2 class="inline-block bg-[var(--color-steel-blue)] text-white px-8 py-3 rounded-full text-xl md:text-2xl font-semibold">
+    <!-- Badge titre -->
+    <div class="mb-16">
+      <h2 class="inline-block bg-[#476bde] text-white px-12 py-5 rounded-full text-xl md:text-2xl font-semibold shadow-xl">
         Exemples de cas d'usage :
       </h2>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
-      <!-- Left: Device Mockups -->
-      <div class="relative">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+      <!--
+        LEFT: Composition de devices
+        Pour modifier les positions, joue avec ces classes:
+        - top-[X%] / bottom-[X%] : position verticale
+        - left-[X%] / right-[X%] : position horizontale
+        - w-[X%] : largeur de l'image
+        - z-10/z-20/z-30 : qui passe devant qui
+      -->
+      <div class="relative min-h-[550px] md:min-h-[650px] lg:min-h-[750px]">
+
+        <!-- MONITEUR - en haut au centre -->
         <img
-          src="/images/25.png"
-          alt="Exemples d'applications sur différents appareils"
-          class="w-full h-auto"
+          src="/images/26.png"
+          alt="Moniteur"
+          class="absolute top-[0%] left-[15%] w-[70%] z-10"
+        />
+
+        <!-- LAPTOP - en bas à gauche -->
+        <img
+          src="/images/28.png"
+          alt="Laptop"
+          class="absolute bottom-[0%] left-[0%] w-[60%] z-20"
+        />
+
+        <!-- PHONE - en bas à droite -->
+        <img
+          src="/images/27.png"
+          alt="Phone"
+          class="absolute bottom-[5%] right-[10%] w-[30%] z-30"
         />
       </div>
 
-      <!-- Right: Use Cases Grid -->
-      <div class="space-y-8">
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+      <!-- RIGHT: Grille d'icônes - PLUS GRANDES -->
+      <div class="space-y-12">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-10">
           {useCases.map((useCase) => (
-            <div class="flex flex-col items-center text-center space-y-3 group">
-              <div class="w-16 h-16 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div class="flex flex-col items-center text-center space-y-4 group cursor-pointer">
+              <!-- Icônes PLUS GRANDES -->
+              <div class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <img
                   src={useCase.icon}
                   alt={useCase.label.replace('\n', ' ')}
                   class="w-full h-full object-contain"
                 />
               </div>
-              <p class="text-sm text-[var(--color-steel-gray)] leading-tight whitespace-pre-line">
+              <p class="text-sm md:text-base text-[#4c4148] leading-tight whitespace-pre-line font-medium">
                 {useCase.label}
               </p>
             </div>
           ))}
         </div>
 
-        <!-- Call to action final -->
-        <div class="text-center pt-6">
-          <p class="text-[var(--color-steel-blue)] text-lg font-semibold">
+        <!-- Texte final -->
+        <div class="text-center pt-8">
+          <p class="text-[#00d6bf] text-xl md:text-2xl font-semibold">
             ... ou tout autre processus industriel !
           </p>
         </div>

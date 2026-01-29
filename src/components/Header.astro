@@ -1,81 +1,113 @@
 ---
 const navItems = [
-  { label: 'Services', href: '#services' },
+  { label: 'Services', href: '#services', hasDropdown: true },
   {
     label: 'Secteurs',
     href: '#secteurs',
+    hasDropdown: true,
     submenu: ['Industrie', 'Construction métallique', 'Bois lamellé-collé']
   },
-  { label: 'Approches', href: '#approches' },
-  { label: 'Réalisations', href: '#realisations' },
+  { label: 'Approches', href: '#approches', hasDropdown: true },
+  { label: 'Réalisations', href: '#realisations', hasDropdown: true },
 ];
 ---
 
-<header class="bg-white/90 backdrop-blur-sm shadow-sm sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-20">
-      <!-- Logo -->
-      <div class="flex-shrink-0">
-        <a href="/" class="flex items-center">
-          <img src="/images/DevTeix.png" alt="Steel Manager" class="h-12" />
-        </a>
-      </div>
+<header class="bg-white sticky top-0 z-50 shadow-sm">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20 md:h-24">
+      <!-- Logo Steel Manager -->
+      <a href="/" class="flex items-center gap-3">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="22" cy="22" r="20" fill="url(#logoGrad)" />
+          <path d="M22 10 L22 34 M14 18 L22 10 L30 18" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00d6bf"/>
+              <stop offset="100%" stop-color="#476bde"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div>
+          <div class="flex items-baseline">
+            <span class="text-[#476bde] font-bold text-2xl tracking-tight">Steel</span>
+            <span class="text-[#00d6bf] font-bold text-2xl tracking-tight">Manager</span>
+          </div>
+          <div class="text-[11px] text-gray-400 tracking-wide">Custom development</div>
+        </div>
+      </a>
 
       <!-- Navigation Desktop -->
-      <nav class="hidden md:flex items-center space-x-8">
+      <nav class="hidden lg:flex items-center gap-10">
         {navItems.map((item) => (
-          <a
-            href={item.href}
-            class="text-[var(--color-steel-gray)] hover:text-[var(--color-steel-blue)] font-medium transition-colors"
-          >
-            {item.label}
-          </a>
+          <div class="relative group">
+            <a
+              href={item.href}
+              class="flex items-center gap-1.5 text-[#476bde] hover:text-[#00d6bf] font-medium text-base transition-colors py-3"
+            >
+              {item.label}
+              {item.hasDropdown && (
+                <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              )}
+            </a>
+            {item.submenu && (
+              <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <div class="w-56 bg-white rounded-xl shadow-2xl border border-gray-100 py-2">
+                  {item.submenu.map((sub) => (
+                    <a href={`#${sub.toLowerCase().replace(/\s+/g, '-')}`} class="block px-5 py-3 text-[#4c4148] hover:bg-gray-50 hover:text-[#476bde] text-sm font-medium transition-colors">
+                      {sub}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         ))}
       </nav>
 
-      <!-- CTA Button -->
-      <div class="flex items-center">
-        <a
-          href="#contact"
-          class="bg-[var(--color-steel-green)] text-white px-6 py-2.5 rounded-lg font-medium hover:opacity-90 transition-opacity"
-        >
-          Planifier un rendez-vous
-        </a>
-      </div>
+      <!-- CTA Button Desktop -->
+      <a
+        href="#contact"
+        class="hidden lg:inline-flex bg-[#00d6bf] text-white px-7 py-3 rounded-full text-base font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
+      >
+        Planifier un rendez-vous
+      </a>
 
       <!-- Mobile menu button -->
-      <button
-        id="mobile-menu-button"
-        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-[var(--color-steel-gray)] hover:text-[var(--color-steel-blue)] hover:bg-gray-100"
-        aria-label="Menu principal"
-      >
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-[#476bde] hover:bg-gray-100" aria-label="Menu">
+        <svg id="menu-open" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="menu-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="md:hidden hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+  <div id="mobile-menu" class="lg:hidden hidden bg-white border-t">
+    <div class="px-6 py-6 space-y-2">
       {navItems.map((item) => (
-        <a
-          href={item.href}
-          class="block px-3 py-2 text-[var(--color-steel-gray)] hover:text-[var(--color-steel-blue)] hover:bg-gray-50 rounded-md font-medium"
-        >
+        <a href={item.href} class="flex items-center justify-between px-4 py-4 text-[#4c4148] hover:text-[#476bde] hover:bg-gray-50 rounded-xl text-lg font-medium">
           {item.label}
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
         </a>
       ))}
+      <a href="#contact" class="block w-full text-center bg-[#00d6bf] text-white px-6 py-4 rounded-full font-semibold text-lg mt-4">
+        Planifier un rendez-vous
+      </a>
     </div>
   </div>
 </header>
 
 <script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
+  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    document.getElementById('menu-open')?.classList.toggle('hidden');
+    document.getElementById('menu-close')?.classList.toggle('hidden');
   });
 </script>

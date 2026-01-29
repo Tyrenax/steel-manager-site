@@ -1,5 +1,7 @@
 # build output
 dist/
+# generated files
+.astro/
 # dependencies
 node_modules/
 # logs
@@ -15,3 +17,5 @@ pnpm-debug.log*
 # IDEs
 .vscode/
 .idea/
+# utility scripts
+screenshot.mjs

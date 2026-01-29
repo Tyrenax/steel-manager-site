@@ -1,42 +1,24 @@
 ---
 const services = [
-  {
-    title: 'Développement de logiciels industriels',
-    image: '/images/9.png'
-  },
-  {
-    title: 'Développement mobile',
-    image: '/images/11.png'
-  },
-  {
-    title: 'Analyse et accompagnement',
-    image: '/images/7.png'
-  },
-  {
-    title: 'Intelligence artificielle',
-    image: '/images/8.png'
-  }
+  { title: 'Développement de logiciels industriels', image: '/images/6.png' },
+  { title: 'Développement mobile', image: '/images/7.png' },
+  { title: 'Analyse et accompagnement', image: '/images/8.png' },
+  { title: 'Intelligence artificielle', image: '/images/9.png' }
 ];
 ---
 
-<section id="services" class="py-16 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-2 gap-6">
+<section id="services" class="px-3 lg:px-4">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="grid grid-cols-2 gap-1 md:gap-1.5">
       {services.map((service) => (
-        <div class="relative rounded-2xl overflow-hidden shadow-lg group cursor-pointer h-64">
-          <!-- Image de fond -->
+        <div class="relative rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer aspect-[16/9]">
           <img
             src={service.image}
             alt={service.title}
-            class="absolute inset-0 w-full h-full object-cover"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-
-          <!-- Overlay bleu -->
-          <div class="absolute inset-0 bg-[var(--color-steel-blue)]/80 group-hover:bg-[var(--color-steel-blue)]/70 transition-all"></div>
-
-          <!-- Contenu -->
-          <div class="relative h-full flex items-center justify-center p-6">
-            <h3 class="text-white text-2xl md:text-3xl font-bold text-center">
+          <div class="absolute inset-0 flex items-center justify-center px-4 md:px-8">
+            <h3 class="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold text-center leading-tight drop-shadow-lg">
               {service.title}
             </h3>
           </div>

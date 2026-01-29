@@ -9,7 +9,19 @@
   --color-gradient-end: #ffffff;
 }
 
-/* Dégradé de fond personnalisé */
+/* Dégradé de fond personnalisé - 135° comme dans la maquette */
 .bg-steel-gradient {
-  background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
+  background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-end) 100%);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Amélioration typographie mobile */
+@media (max-width: 640px) {
+  h1, h2, h3 {
+    word-break: break-word;
+  }
 }
