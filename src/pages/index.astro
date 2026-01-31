@@ -3,19 +3,24 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import HeroSection from '../components/HeroSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
+import SolutionsSection from '../components/SolutionsSection.astro';
 import TeamSection from '../components/TeamSection.astro';
-import UseCasesSection from '../components/UseCasesSection.astro';
+import ContactSection from '../components/ContactSection.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Steel Manager - Logiciels industriels sur mesure">
+<Layout
+  title="DevTeix - Logiciels industriels sur mesure"
+  description="Développement de logiciels industriels personnalisés. Plus de 30 ans d'expérience dans les solutions GPAO, ERP et outils métier."
+>
   <Header />
 
   <main>
     <HeroSection />
     <ServicesSection />
+    <SolutionsSection />
     <TeamSection />
-    <UseCasesSection />
+    <ContactSection />
   </main>
 
   <Footer />

@@ -1,34 +1,92 @@
 ---
 const services = [
-  { title: 'Développement de logiciels industriels', image: '/images/6.png', delay: 0 },
-  { title: 'Développement mobile', image: '/images/7.png', delay: 100 },
-  { title: 'Analyse et accompagnement', image: '/images/8.png', delay: 200 },
-  { title: 'Intelligence artificielle', image: '/images/9.png', delay: 300 }
+  {
+    title: 'Logiciels industriels',
+    description: 'Solutions GPAO et ERP sur mesure pour gérer production, stocks et qualité.',
+    image: '/images/6.png'
+  },
+  {
+    title: 'Applications mobiles',
+    description: 'Apps iOS & Android pour le terrain : suivi, scan, validation en temps réel.',
+    image: '/images/7.png'
+  },
+  {
+    title: 'Conseil & Audit',
+    description: 'Analyse de vos processus et accompagnement dans votre transformation digitale.',
+    image: '/images/8.png'
+  },
+  {
+    title: 'Intelligence artificielle',
+    description: 'IA pour optimiser planification, prédiction et automatisation de vos process.',
+    image: '/images/9.png'
+  }
 ];
 ---
 
-<section id="services" class="px-3 lg:px-4 py-4">
-  <div class="max-w-[1400px] mx-auto">
-    <div class="grid grid-cols-2 gap-1.5 md:gap-2">
+<section id="services" class="section-dark section-spacing relative overflow-hidden">
+  <!-- Background decoration -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-[#4361ee]/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-[#06d6a0]/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Header -->
+    <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="600">
+      <span class="inline-block text-[#06d6a0] text-sm font-semibold tracking-wider uppercase mb-4">
+        Nos expertises
+      </span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+        Des solutions pour chaque défi
+      </h2>
+      <p class="text-white/60 text-lg max-w-2xl mx-auto">
+        Notre équipe couvre l'ensemble du cycle de développement logiciel industriel
+      </p>
+    </div>
+
+    <!-- Services Grid with real images -->
+    <div class="grid sm:grid-cols-2 gap-4 lg:gap-6">
       {services.map((service, index) => (
         <div
-          class="relative rounded-2xl md:rounded-3xl overflow-hidden group cursor-pointer aspect-[16/9]"
+          class="group relative rounded-2xl overflow-hidden aspect-[16/10] cursor-pointer"
           data-aos="zoom-in"
           data-aos-duration="600"
-          data-aos-delay={service.delay}
+          data-aos-delay={index * 100}
         >
+          <!-- Background Image -->
           <img
             src={service.image}
             alt={service.title}
-            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div class="absolute inset-0 flex items-center justify-center px-4 md:px-8">
-            <h3 class="text-white text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold text-center leading-tight drop-shadow-xl transform group-hover:scale-105 transition-transform duration-300">
+
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+
+          <!-- Content -->
+          <div class="absolute inset-0 p-6 flex flex-col justify-end">
+            <h3 class="text-white text-xl lg:text-2xl font-bold mb-2">
               {service.title}
             </h3>
+            <p class="text-white/70 text-sm lg:text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-w-md">
+              {service.description}
+            </p>
           </div>
         </div>
       ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12" data-aos="fade-up" data-aos-duration="600" data-aos-delay="400">
+      <a
+        href="#contact"
+        class="btn-accent inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-semibold"
+      >
+        Discuter de votre projet
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
     </div>
   </div>
 </section>
