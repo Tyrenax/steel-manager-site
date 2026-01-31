@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Steel Manager - Logiciels industriels sur mesure" } = Astro.props;
+const { title, description = "DevTeix - Développement logiciel sur mesure pour l'industrie et les métiers complexes" } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,27 +19,27 @@ const { title, description = "Steel Manager - Logiciels industriels sur mesure" 
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    <!-- Google Fonts - Inter -->
+    <!-- Google Fonts - IBM Plex Sans (corps) + Bricolage Grotesque (titres) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   </head>
-  <body class="bg-steel-gradient min-h-screen antialiased">
+  <body class="min-h-screen antialiased">
     <slot />
 
-    <!-- AOS JS -->
+    <!-- AOS JS - Configuration rapide et sobre -->
     <script is:inline src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script is:inline>
       document.addEventListener('DOMContentLoaded', function() {
         if (typeof AOS !== 'undefined') {
           AOS.init({
-            duration: 800,
-            easing: 'ease-out-cubic',
+            duration: 400,
+            easing: 'ease-out',
             once: true,
-            offset: 50,
+            offset: 30,
           });
         }
       });

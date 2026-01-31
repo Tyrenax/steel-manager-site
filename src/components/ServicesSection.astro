@@ -1,66 +1,97 @@
 ---
 const services = [
-  { title: 'Logiciels industriels', image: '/images/6.png' },
-  { title: 'Applications mobiles', image: '/images/7.png' },
-  { title: 'Conseil & Audit', image: '/images/8.png' },
-  { title: 'Intelligence artificielle', image: '/images/9.png' }
+  {
+    title: 'Développement sur mesure',
+    description: 'Applications métier adaptées à VOS processus : ERP, GPAO, WMS, CRM... On part de votre réalité, pas d\'un template.',
+    icon: 'code',
+    features: ['Modules personnalisés', 'Intégration existant', 'Évolutif']
+  },
+  {
+    title: 'Intégration systèmes',
+    description: 'Connexion de vos outils existants : ERP, machines, capteurs IoT, APIs tierces. Zéro double saisie.',
+    icon: 'link',
+    features: ['Multi-systèmes', 'Temps réel', 'APIs robustes']
+  },
+  {
+    title: 'Audit & Diagnostic',
+    description: 'On vient sur le terrain. On observe vos équipes. On identifie les blocages. Rapport actionnable.',
+    icon: 'search',
+    features: ['Analyse terrain', 'Recommandations', 'Plan d\'action']
+  },
+  {
+    title: 'Apps terrain & mobiles',
+    description: 'Applications pour vos équipes : pointage, contrôle qualité, inventaire, maintenance. Même hors connexion.',
+    icon: 'mobile',
+    features: ['Mode offline', 'Interface simple', 'Synchronisation']
+  }
 ];
+
+const icons = {
+  code: `<path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />`,
+  link: `<path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />`,
+  search: `<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />`,
+  mobile: `<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />`
+};
 ---
 
-<section id="services" class="bg-[#1a1d29] py-16">
-  <div class="max-w-5xl mx-auto px-4">
+<section id="services" class="section-soft section-spacing">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
-    <div class="text-center mb-10">
-      <span class="text-[#06d6a0] text-sm font-semibold tracking-wider uppercase">Nos expertises</span>
-      <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Des solutions pour chaque défi</h2>
+    <div class="max-w-2xl mb-12" data-aos="fade-up">
+      <span class="badge badge-primary mb-4">Nos services</span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-dark mb-4">
+        Des solutions pour chaque défi
+      </h2>
+      <p class="text-text-light text-lg">
+        On ne vend pas de logiciel sur étagère. On construit avec vous l'outil qui correspond exactement à votre métier.
+      </p>
     </div>
 
-    <!-- Ligne 1 -->
-    <div class="flex gap-2 mb-2">
-      <div class="group flex-1 relative rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio: 3/1;">
-        <img src="/images/6.png" alt="Logiciels industriels" class="absolute inset-0 w-full h-full object-cover scale-110 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110" />
-        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <h3 class="text-white text-xl sm:text-2xl font-bold text-center drop-shadow-lg transition-transform duration-300 group-hover:scale-105">Logiciels industriels</h3>
-        </div>
-        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0] rounded-xl transition-all duration-300"></div>
-      </div>
-      <div class="group flex-1 relative rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio: 3/1;">
-        <img src="/images/7.png" alt="Applications mobiles" class="absolute inset-0 w-full h-full object-cover scale-110 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110" />
-        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <h3 class="text-white text-xl sm:text-2xl font-bold text-center drop-shadow-lg transition-transform duration-300 group-hover:scale-105">Applications mobiles</h3>
-        </div>
-        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0] rounded-xl transition-all duration-300"></div>
-      </div>
-    </div>
+    <!-- Services Grid -->
+    <div class="grid md:grid-cols-2 gap-4 lg:gap-6">
+      {services.map((service, index) => (
+        <article
+          class="group card card-accent-left p-6 lg:p-8"
+          data-aos="fade-up"
+          data-aos-delay={index * 50}
+        >
+          <div class="flex gap-5">
+            <!-- Icon -->
+            <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/5 border border-primary/10 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <Fragment set:html={icons[service.icon]} />
+              </svg>
+            </div>
 
-    <!-- Ligne 2 -->
-    <div class="flex gap-2">
-      <div class="group flex-1 relative rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio: 3/1;">
-        <img src="/images/8.png" alt="Conseil & Audit" class="absolute inset-0 w-full h-full object-cover scale-110 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110" />
-        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <h3 class="text-white text-xl sm:text-2xl font-bold text-center drop-shadow-lg transition-transform duration-300 group-hover:scale-105">Conseil & Audit</h3>
-        </div>
-        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0] rounded-xl transition-all duration-300"></div>
-      </div>
-      <div class="group flex-1 relative rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio: 3/1;">
-        <img src="/images/9.png" alt="Intelligence artificielle" class="absolute inset-0 w-full h-full object-cover scale-110 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110" />
-        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <h3 class="text-white text-xl sm:text-2xl font-bold text-center drop-shadow-lg transition-transform duration-300 group-hover:scale-105">Intelligence artificielle</h3>
-        </div>
-        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0] rounded-xl transition-all duration-300"></div>
-      </div>
+            <!-- Content -->
+            <div class="flex-1 min-w-0">
+              <h3 class="text-lg font-semibold text-dark mb-2 group-hover:text-primary transition-colors">
+                {service.title}
+              </h3>
+              <p class="text-text-light text-sm leading-relaxed mb-4">
+                {service.description}
+              </p>
+
+              <!-- Features tags -->
+              <div class="flex flex-wrap gap-2">
+                {service.features.map((feature) => (
+                  <span class="text-xs px-2 py-1 bg-light border border-border rounded text-text-light">
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
     </div>
 
     <!-- CTA -->
-    <div class="text-center mt-10">
-      <a href="#contact" class="btn-accent inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-semibold">
+    <div class="text-center mt-12" data-aos="fade-up">
+      <a href="#contact" class="btn btn-primary">
         Discuter de votre projet
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
         </svg>
       </a>
     </div>

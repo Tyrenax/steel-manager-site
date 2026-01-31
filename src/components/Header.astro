@@ -2,20 +2,21 @@
 const navItems = [
   { label: 'Services', href: '#services' },
   { label: 'Solutions', href: '#solutions' },
+  { label: 'Méthode', href: '#method' },
   { label: 'Équipe', href: '#equipe' },
   { label: 'Contact', href: '#contact' },
 ];
 ---
 
-<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-150">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16 lg:h-20">
+    <div class="flex justify-between items-center h-16 lg:h-18">
       <!-- Logo -->
       <a href="/" class="flex items-center relative z-10 shrink-0">
         <img
           src="/images/DevTeix.png"
           alt="DevTeix"
-          style="height: 40px; width: auto;"
+          style="height: 36px; width: auto;"
         />
       </a>
 
@@ -24,7 +25,7 @@ const navItems = [
         {navItems.map((item) => (
           <a
             href={item.href}
-            class="nav-link px-4 py-2 text-[#1a1d29] hover:text-[#4361ee] text-sm font-medium transition-all duration-200 rounded-lg hover:bg-[#4361ee]/5"
+            class="nav-link px-4 py-2 text-dark hover:text-primary text-sm font-medium transition-colors rounded-md hover:bg-primary/5"
           >
             {item.label}
           </a>
@@ -37,13 +38,13 @@ const navItems = [
           href="https://steel-manager.be/fr/"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-sm text-[#6c7293] hover:text-[#4361ee] font-medium transition-colors"
+          class="text-sm text-text-light hover:text-primary font-medium transition-colors"
         >
           Steel Manager
         </a>
         <a
           href="#contact"
-          class="btn-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold"
+          class="btn btn-primary text-sm"
         >
           Nous contacter
         </a>
@@ -52,7 +53,7 @@ const navItems = [
       <!-- Mobile menu button -->
       <button
         id="mobile-menu-btn"
-        class="lg:hidden relative z-10 p-2 rounded-lg text-[#1a1d29] hover:bg-[#4361ee]/5 transition-colors"
+        class="lg:hidden relative z-10 p-2 rounded-md text-dark hover:bg-light transition-colors"
         aria-label="Menu"
       >
         <svg id="menu-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,31 +67,31 @@ const navItems = [
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="lg:hidden hidden absolute top-full left-0 right-0 glass-dark">
-    <div class="px-4 py-6 space-y-1">
+  <div id="mobile-menu" class="lg:hidden hidden absolute top-full left-0 right-0 bg-white border-b border-border shadow-lg">
+    <div class="px-4 py-4 space-y-1">
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="flex items-center justify-between px-4 py-3 text-white/90 hover:text-white hover:bg-white/5 rounded-xl text-base font-medium transition-all"
+          class="flex items-center justify-between px-4 py-3 text-dark hover:text-primary hover:bg-light rounded-md text-base font-medium transition-all"
         >
           {item.label}
-          <svg class="w-4 h-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-text-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </a>
       ))}
-      <div class="pt-4 space-y-3">
+      <div class="pt-4 space-y-3 border-t border-border mt-4">
         <a
           href="https://steel-manager.be/fr/"
           target="_blank"
           rel="noopener noreferrer"
-          class="block w-full text-center text-white/80 px-4 py-3 rounded-xl text-sm font-medium border border-white/20 hover:bg-white/5 transition-colors"
+          class="block w-full text-center text-text-light px-4 py-3 rounded-md text-sm font-medium border border-border hover:bg-light transition-colors"
         >
           Voir Steel Manager
         </a>
         <a
           href="#contact"
-          class="btn-accent block w-full text-center px-4 py-3 rounded-xl font-semibold text-sm"
+          class="btn btn-accent block w-full text-center"
         >
           Nous contacter
         </a>
@@ -120,19 +121,14 @@ const navItems = [
     });
   });
 
-  // Header scroll effect
+  // Header scroll effect - simple background
   const header = document.getElementById('header');
-  let lastScroll = 0;
 
   window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll > 50) {
-      header?.classList.add('glass', 'shadow-lg', 'shadow-black/5');
+    if (window.pageYOffset > 20) {
+      header?.classList.add('bg-white/95', 'backdrop-blur-sm', 'border-b', 'border-border');
     } else {
-      header?.classList.remove('glass', 'shadow-lg', 'shadow-black/5');
+      header?.classList.remove('bg-white/95', 'backdrop-blur-sm', 'border-b', 'border-border');
     }
-
-    lastScroll = currentScroll;
   });
 </script>
