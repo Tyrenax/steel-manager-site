@@ -1,69 +1,62 @@
 ---
 const services = [
-  {
-    title: 'Logiciels industriels',
-    image: '/images/6.png',
-    desc: 'GPAO, ERP et outils métier'
-  },
-  {
-    title: 'Applications mobiles',
-    image: '/images/7.png',
-    desc: 'iOS, Android et multiplateforme'
-  },
-  {
-    title: 'Conseil & Audit',
-    image: '/images/8.png',
-    desc: 'Analyse et optimisation'
-  },
-  {
-    title: 'Intelligence artificielle',
-    image: '/images/9.png',
-    desc: 'IA et automatisation'
-  }
+  { title: 'Logiciels industriels', image: '/images/6.png' },
+  { title: 'Applications mobiles', image: '/images/7.png' },
+  { title: 'Conseil & Audit', image: '/images/8.png' },
+  { title: 'Intelligence artificielle', image: '/images/9.png' }
 ];
 ---
 
-<section id="services" class="bg-[#1a1d29] py-20 lg:py-24">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="services" class="bg-[#1a1d29] py-16">
+  <div class="max-w-5xl mx-auto px-4">
     <!-- Header -->
-    <div class="text-center mb-12" data-aos="fade-up">
+    <div class="text-center mb-10">
       <span class="text-[#06d6a0] text-sm font-semibold tracking-wider uppercase">Nos expertises</span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-3">Des solutions pour chaque défi</h2>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mt-3">Des solutions pour chaque défi</h2>
     </div>
 
-    <!-- Grid 2x2 with proper rectangles -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6">
-      {services.map((service, index) => (
-        <div
-          class="group relative rounded-2xl overflow-hidden cursor-pointer"
-          style="aspect-ratio: 16/10;"
-          data-aos="fade-up"
-          data-aos-delay={index * 100}
-        >
-          <img
-            src={service.image}
-            alt={service.title}
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-          />
-          <!-- Gradient overlay -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#1a1d29]/90 via-[#1a1d29]/40 to-transparent"></div>
-          <!-- Content -->
-          <div class="absolute inset-0 flex flex-col items-center justify-center p-6">
-            <h3 class="text-white text-xl sm:text-2xl lg:text-3xl font-bold text-center drop-shadow-lg mb-2">
-              {service.title}
-            </h3>
-            <p class="text-white/70 text-sm sm:text-base text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {service.desc}
-            </p>
-          </div>
-          <!-- Border on hover -->
-          <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0]/50 rounded-2xl transition-colors duration-300"></div>
+    <!-- Ligne 1 -->
+    <div class="flex gap-2 mb-2">
+      <div class="group flex-1 relative rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio: 3/1;">
+        <img src="/images/6.png" alt="Logiciels industriels" class="absolute inset-0 w-full h-full object-cover scale-110 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110" />
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <h3 class="text-white text-xl sm:text-2xl font-bold text-center drop-shadow-lg transition-transform duration-300 group-hover:scale-105">Logiciels industriels</h3>
         </div>
-      ))}
+        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0] rounded-xl transition-all duration-300"></div>
+      </div>
+      <div class="group flex-1 relative rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio: 3/1;">
+        <img src="/images/7.png" alt="Applications mobiles" class="absolute inset-0 w-full h-full object-cover scale-110 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110" />
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <h3 class="text-white text-xl sm:text-2xl font-bold text-center drop-shadow-lg transition-transform duration-300 group-hover:scale-105">Applications mobiles</h3>
+        </div>
+        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0] rounded-xl transition-all duration-300"></div>
+      </div>
+    </div>
+
+    <!-- Ligne 2 -->
+    <div class="flex gap-2">
+      <div class="group flex-1 relative rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio: 3/1;">
+        <img src="/images/8.png" alt="Conseil & Audit" class="absolute inset-0 w-full h-full object-cover scale-110 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110" />
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <h3 class="text-white text-xl sm:text-2xl font-bold text-center drop-shadow-lg transition-transform duration-300 group-hover:scale-105">Conseil & Audit</h3>
+        </div>
+        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0] rounded-xl transition-all duration-300"></div>
+      </div>
+      <div class="group flex-1 relative rounded-xl overflow-hidden cursor-pointer" style="aspect-ratio: 3/1;">
+        <img src="/images/9.png" alt="Intelligence artificielle" class="absolute inset-0 w-full h-full object-cover scale-110 transition-all duration-500 group-hover:scale-125 group-hover:brightness-110" />
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <h3 class="text-white text-xl sm:text-2xl font-bold text-center drop-shadow-lg transition-transform duration-300 group-hover:scale-105">Intelligence artificielle</h3>
+        </div>
+        <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#06d6a0] rounded-xl transition-all duration-300"></div>
+      </div>
     </div>
 
     <!-- CTA -->
-    <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="400">
+    <div class="text-center mt-10">
       <a href="#contact" class="btn-accent inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-semibold">
         Discuter de votre projet
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
