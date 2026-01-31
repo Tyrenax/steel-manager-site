@@ -1,106 +1,68 @@
 ---
 const solutions = [
-  { icon: '/images/13.png', label: 'Production', desc: 'Suivi en temps réel' },
-  { icon: '/images/14.png', label: 'Optimisation', desc: 'Découpe tôles & barres' },
-  { icon: '/images/15.png', label: 'CNC', desc: 'Post-processeurs' },
-  { icon: '/images/16.png', label: 'Stocks', desc: 'Gestion inventaires' },
-  { icon: '/images/17.png', label: 'Achats', desc: 'Approvisionnement' },
-  { icon: '/images/18.png', label: 'IA', desc: 'Temps théoriques' },
-  { icon: '/images/19.png', label: 'Planning', desc: 'Planification' },
-  { icon: '/images/20.png', label: 'Livraison', desc: 'Expédition & montage' },
-  { icon: '/images/21.png', label: '3D', desc: 'Statuts modèles' },
-  { icon: '/images/22.png', label: 'Temps', desc: 'Activités & pointage' },
-  { icon: '/images/23.png', label: 'Qualité', desc: 'Contrôle AR' },
-  { icon: '/images/24.png', label: 'Finance', desc: 'Rentabilité' },
+  { icon: '/images/13.png', label: 'Production' },
+  { icon: '/images/14.png', label: 'Optimisation' },
+  { icon: '/images/15.png', label: 'CNC' },
+  { icon: '/images/16.png', label: 'Stocks' },
+  { icon: '/images/17.png', label: 'Achats' },
+  { icon: '/images/18.png', label: 'IA' },
+  { icon: '/images/19.png', label: 'Planning' },
+  { icon: '/images/20.png', label: 'Livraison' },
+  { icon: '/images/21.png', label: '3D' },
+  { icon: '/images/22.png', label: 'Temps' },
+  { icon: '/images/23.png', label: 'Qualité' },
+  { icon: '/images/24.png', label: 'Finance' },
 ];
 ---
 
-<section id="solutions" class="section-soft section-spacing relative">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Header -->
-    <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="600">
-      <span class="inline-block text-[#4361ee] text-sm font-semibold tracking-wider uppercase mb-4">
+<section id="solutions" class="bg-[#f8f9fc] py-16 lg:py-20 relative overflow-hidden">
+  <!-- Device images as decorative background elements -->
+
+  <!-- Left side - Monitor (decorative) -->
+  <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[15%] opacity-[0.15] pointer-events-none hidden lg:block">
+    <img src="/images/26.png" alt="" class="w-[400px]" />
+  </div>
+
+  <!-- Right side - Phone (decorative) -->
+  <div class="absolute right-0 top-1/4 translate-x-[25%] opacity-[0.15] pointer-events-none hidden lg:block">
+    <img src="/images/27.png" alt="" class="w-[200px]" />
+  </div>
+
+  <!-- Right bottom - Laptop (decorative) -->
+  <div class="absolute right-0 bottom-0 translate-x-[10%] translate-y-[10%] opacity-[0.12] pointer-events-none hidden lg:block">
+    <img src="/images/28.png" alt="" class="w-[350px]" />
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 relative z-10">
+    <!-- Header centré -->
+    <div class="text-center mb-10">
+      <span class="text-[#4361ee] text-sm font-semibold tracking-wider uppercase">
         Cas d'usage
       </span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1a1d29] mb-4">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1a1d29] mt-2">
         Couvrez tous vos processus
       </h2>
-      <p class="text-[#6c7293] text-lg max-w-2xl mx-auto">
-        De la conception à la livraison, nos solutions s'adaptent à chaque étape
-      </p>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-      <!-- Left: Device mockups with real images -->
-      <div
-        class="relative h-[350px] sm:h-[420px] lg:h-[500px]"
-        data-aos="fade-right"
-        data-aos-duration="800"
-      >
-        <!-- Monitor -->
-        <img
-          src="/images/26.png"
-          alt="Interface desktop Steel Manager"
-          class="absolute top-0 left-[10%] w-[70%] z-10 drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500"
-        />
-
-        <!-- Laptop -->
-        <img
-          src="/images/28.png"
-          alt="Interface laptop"
-          class="absolute bottom-0 left-0 w-[55%] z-20 drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500"
-        />
-
-        <!-- Phone -->
-        <img
-          src="/images/27.png"
-          alt="Application mobile"
-          class="absolute bottom-[5%] right-[5%] w-[30%] z-30 drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500"
-        />
-      </div>
-
-      <!-- Right: Solutions grid -->
-      <div>
-        <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4">
-          {solutions.map((solution, index) => (
-            <div
-              class="group text-center p-3 rounded-xl hover:bg-white hover:shadow-lg hover:shadow-[#4361ee]/5 transition-all duration-300 cursor-pointer"
-              data-aos="zoom-in"
-              data-aos-duration="400"
-              data-aos-delay={50 + (index * 40)}
-            >
-              <div class="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-2 transition-transform duration-300 group-hover:scale-110">
-                <img
-                  src={solution.icon}
-                  alt={solution.label}
-                  class="w-full h-full object-contain"
-                />
-              </div>
-              <div class="text-[#1a1d29] text-xs sm:text-sm font-semibold mb-0.5 group-hover:text-[#4361ee] transition-colors">
-                {solution.label}
-              </div>
-              <div class="text-[#6c7293] text-[10px] hidden sm:block">
-                {solution.desc}
-              </div>
-            </div>
-          ))}
+    <!-- Grid 4x3 compact et centré -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 650px; margin: 0 auto;">
+      {solutions.map((solution) => (
+        <div class="group flex flex-col items-center text-center p-3 rounded-xl hover:bg-white hover:shadow-lg transition-all cursor-pointer">
+          <img
+            src={solution.icon}
+            alt={solution.label}
+            class="w-14 h-14 sm:w-16 sm:h-16 lg:w-18 lg:h-18 object-contain group-hover:scale-110 transition-transform"
+          />
+          <span class="text-[#1a1d29] text-xs sm:text-sm font-medium mt-2 group-hover:text-[#4361ee] transition-colors">
+            {solution.label}
+          </span>
         </div>
-
-        <div class="mt-8 text-center" data-aos="fade-up" data-aos-duration="600" data-aos-delay="600">
-          <p class="text-[#06d6a0] font-semibold mb-4">
-            + Tout autre processus industriel spécifique
-          </p>
-          <a
-            href="#contact"
-            class="inline-flex items-center gap-2 text-[#4361ee] font-semibold hover:text-[#3651d4] transition-colors group"
-          >
-            Parlez-nous de vos besoins
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        </div>
-      </div>
+      ))}
     </div>
+
+    <!-- Footer -->
+    <p class="text-center text-[#06d6a0] font-semibold text-sm mt-8">
+      + Tout autre processus industriel spécifique
+    </p>
   </div>
 </section>
