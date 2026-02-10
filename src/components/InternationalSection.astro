@@ -1,0 +1,199 @@
+---
+import { readFileSync } from 'node:fs';
+
+const countries = [
+  { flag: '/images/60.png', name: 'Belgique' },
+  { flag: '/images/61.png', name: 'France' },
+  { flag: '/images/62.png', name: 'Pays-Bas' },
+  { flag: '/images/63.png', name: 'Allemagne' },
+  { flag: '/images/64.png', name: 'Pologne' },
+  { flag: '/images/65.png', name: 'Brésil' },
+];
+
+const codeEarthRaw = readFileSync(new URL('../../public/images/codeearth.txt', import.meta.url), 'utf-8');
+const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
+---
+
+<section class="section-spacing relative overflow-hidden section-anchor-line" style="background: linear-gradient(180deg, #f8f9fc 0%, #f2f4fa 40%, #ffffff 100%);">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-start">
+      <div data-aos="fade-right" data-aos-duration="400">
+        <span class="badge badge-primary mb-5">International</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-dark mb-4 leading-tight">
+          Une présence <span class="text-gradient">internationale</span>
+        </h2>
+        <p class="text-text-light text-lg leading-relaxed mb-7 max-w-2xl">
+          Nos solutions accompagnent des industriels à travers l'Europe et au-delà. Une même méthode, adaptée à chaque réalité locale.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-3 mb-7">
+          {countries.map((country, index) => (
+            <div
+              class="country-row"
+              data-aos="fade-up"
+              data-aos-delay={index * 45}
+            >
+              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-white shadow-sm flex-shrink-0">
+                <img
+                  src={country.flag}
+                  alt={country.name}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <p class="text-dark font-semibold text-sm">{country.name}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-white border border-border shadow-sm">
+          <div class="text-3xl font-bold text-primary">150+</div>
+          <div class="text-sm text-text-light leading-tight">projets déployés<br/>à l'international</div>
+        </div>
+      </div>
+
+      <div
+        class="relative intl-visual"
+        data-aos="fade-left"
+        data-aos-duration="450"
+      >
+        {/*
+        <div class="map-shell">
+          <div class="map-shell__badge">
+            <span>Interventions</span>
+            <strong>Europe & Amérique du Sud</strong>
+          </div>
+
+          <img
+            src="/images/Earth.png"
+            alt="Présence mondiale DevTeix"
+            class="relative w-full max-w-[335px] mx-auto h-auto"
+            style="filter: drop-shadow(0 18px 28px rgba(67,97,238,0.16)); transform: translateX(-6px);"
+            loading="lazy"
+          />
+        </div>
+        */}
+
+        <div class="map-shell map-shell--cartoon">
+          <div class="map-shell__badge">
+            <span>Interventions</span>
+            <strong>Europe & Amérique du Sud</strong>
+          </div>
+          <div class="earth-cartoon" set:html={codeEarthSvg} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .country-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 12px;
+    border: 1px solid rgba(108, 114, 147, 0.18);
+    background: rgba(255, 255, 255, 0.72);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .country-row:hover {
+    transform: translateY(-1px);
+    border-color: rgba(67, 97, 238, 0.28);
+    box-shadow: 0 10px 16px -14px rgba(26, 29, 41, 0.6);
+  }
+
+  .map-shell {
+    position: relative;
+    border-radius: 18px;
+    border: 1px solid rgba(67, 97, 238, 0.12);
+    background:
+      radial-gradient(ellipse 82% 65% at 84% 18%, rgba(67, 97, 238, 0.07), transparent 74%),
+      radial-gradient(ellipse 70% 60% at 10% 92%, rgba(6, 214, 160, 0.07), transparent 72%),
+      linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(248,249,252,0.92) 100%);
+    padding: 1.1rem;
+    min-height: 100%;
+    overflow: clip;
+  }
+
+  .map-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image:
+      linear-gradient(90deg, rgba(67, 97, 238, 0.04) 1px, transparent 1px),
+      linear-gradient(rgba(67, 97, 238, 0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .map-shell__badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 12px;
+    border: 1px solid rgba(67, 97, 238, 0.16);
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0 6px 14px -12px rgba(26, 29, 41, 0.45);
+    font-size: 0.68rem;
+    color: var(--color-text-light);
+    line-height: 1.25;
+  }
+
+  .map-shell__badge strong {
+    color: var(--color-dark);
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .map-shell--cartoon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    overflow: visible;
+  }
+
+  .earth-cartoon {
+    width: 100%;
+    max-width: 310px;
+    margin: 0 auto;
+    transform: translateX(-6px);
+  }
+
+  .earth-cartoon :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: saturate(0.93) contrast(1.03);
+  }
+
+  .earth-cartoon :global(.box) {
+    overflow: visible;
+  }
+
+  .earth-cartoon :global(#Moon) {
+    animation: earth-moon-spin 320s linear infinite;
+    transform-origin: center;
+    opacity: 0.52;
+  }
+
+  @keyframes earth-moon-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @media (min-width: 1024px) {
+    .intl-visual {
+      margin-top: 3.6rem;
+    }
+  }
+</style>

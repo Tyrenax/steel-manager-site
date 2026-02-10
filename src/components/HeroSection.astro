@@ -1,107 +1,314 @@
 ---
+const stats = [
+  { value: '30+', label: "années d'expertise" },
+  { value: '150+', label: 'projets déployés' },
+  { value: '100%', label: 'dernière enquête de satisfaction' },
+];
+
+
+const clients = [
+  { src: '/images/67.png', alt: 'Segal - Tata Steel' },
+  { src: '/images/68.png', alt: 'Soprema' },
+  { src: '/images/69.png', alt: 'HSM Offshore Energy' },
+  { src: '/images/70.png', alt: 'Christmann + Pfeifer' },
+  { src: '/images/71.png', alt: 'Zekon Steel Structures' },
+  { src: '/images/72.png', alt: 'Brafer' },
+  { src: '/images/66.png', alt: 'Iemants Steel Constructions' },
+];
 ---
 
-<section class="py-8 md:py-14 px-3 lg:px-4 overflow-hidden relative">
-  <!-- Floating decorative elements -->
-  <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-[#476bde]/10 to-transparent rounded-full blur-3xl animate-float pointer-events-none"></div>
-  <div class="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-br from-[#00d6bf]/10 to-transparent rounded-full blur-3xl animate-float-delayed pointer-events-none"></div>
+<section class="relative min-h-[84vh] flex items-center section-hero overflow-hidden">
+  <!-- Subtle grid pattern -->
+  <div class="absolute inset-0 opacity-[0.015]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%234361ee&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
 
-  <div class="max-w-[1400px] mx-auto relative">
-    <!-- Container principal avec l'image en absolu -->
-    <div class="relative">
-      <!-- Bloc bleu titre + image qui chevauche -->
-      <div class="flex items-start">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 lg:pt-32 lg:pb-20 relative z-10 w-full">
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Content -->
+      <div class="order-2 lg:order-1">
+
+        <!-- Badge -->
         <div
-          class="glass-dark text-white px-8 py-6 md:px-12 md:py-8 lg:px-16 lg:py-10 rounded-[2rem] md:rounded-[2.5rem] relative z-10 shadow-premium overflow-hidden reveal-left"
-          style="transition-delay: 0.1s;"
+          class="badge badge-primary mb-6"
+          data-aos="fade-right"
+          data-aos-duration="300"
         >
-          <!-- Shimmer effect overlay -->
-          <div class="absolute inset-0 animate-shimmer pointer-events-none"></div>
-
-          <h1 class="font-bold leading-[1.3] relative z-10">
-            <span class="block text-xl sm:text-2xl md:text-3xl lg:text-4xl whitespace-nowrap text-reveal" style="animation-delay: 0.3s;">
-              Des logiciels industriels
-            </span>
-            <span class="block text-xl sm:text-2xl md:text-3xl lg:text-4xl whitespace-nowrap text-reveal" style="animation-delay: 0.5s;">
-              qui couvrent vos besoins spécifiques
-            </span>
-          </h1>
-
-          <!-- Gradient accent -->
-          <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00d6bf] to-transparent"></div>
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+          </svg>
+          <span>Issu de 30 ans d'expertise Steel Manager</span>
         </div>
 
-        <!-- Image - avec effet parallax subtil -->
-        <div class="hidden md:block absolute top-0 left-[42%] right-[-3%] z-20 parallax-container">
-          <img
-            src="/images/4.png"
-            alt="Expert industriel"
-            class="w-auto h-auto max-h-[380px] lg:max-h-[450px] object-contain object-right parallax-element reveal-right"
-            style="transition-delay: 0.3s;"
-            data-speed="0.1"
-          />
-        </div>
-      </div>
+        <!-- Heading -->
+        <h1
+          class="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-dark leading-[1.1] mb-6 tracking-tight"
+          data-aos="fade-up"
+          data-aos-duration="400"
+          data-aos-delay="50"
+        >
+          Votre process est unique.<br/>
+          <span class="text-primary">Votre logiciel</span> devrait l'être.
+        </h1>
 
-      <!-- Bullet points avec animations décalées -->
-      <div class="mt-10 space-y-4 md:space-y-5 max-w-xl stagger-children">
-        <div class="flex items-center gap-4 group">
-          <div class="relative">
-            <div class="w-3 h-3 rounded-full bg-[#00d6bf] flex-shrink-0 animate-pulse-glow"></div>
-            <div class="absolute inset-0 w-3 h-3 rounded-full bg-[#00d6bf] animate-ping opacity-20"></div>
-          </div>
-          <p class="text-[#4c4148] text-sm md:text-base lg:text-lg transition-colors duration-300 group-hover:text-[#476bde]">
-            <span class="font-semibold">Développements</span> <span class="text-[#00d6bf] font-semibold">sur mesure</span> adaptés à vos processus réels
-          </p>
-        </div>
+        <!-- Description -->
+        <p
+          class="text-text-light text-lg leading-relaxed mb-8 max-w-lg"
+          data-aos="fade-up"
+          data-aos-duration="400"
+          data-aos-delay="100"
+        >
+          Développement de logiciels <span class="text-gradient font-semibold">industriels</span> sur mesure pour les métiers complexes.
+          Nous partons de votre réalité terrain, pas d'un produit standard.
+        </p>
 
-        <div class="flex items-center gap-4 group">
-          <div class="relative">
-            <div class="w-3 h-3 rounded-full bg-[#00d6bf] flex-shrink-0 animate-pulse-glow"></div>
-            <div class="absolute inset-0 w-3 h-3 rounded-full bg-[#00d6bf] animate-ping opacity-20" style="animation-delay: 0.5s;"></div>
-          </div>
-          <p class="text-[#4c4148] text-sm md:text-base lg:text-lg transition-colors duration-300 group-hover:text-[#476bde]">
-            Plus de <span class="font-semibold">30 ans d'expérience</span> dans les logiciels industriels
-          </p>
-        </div>
-
-        <div class="flex items-center gap-4 group">
-          <div class="relative">
-            <div class="w-3 h-3 rounded-full bg-[#00d6bf] flex-shrink-0 animate-pulse-glow"></div>
-            <div class="absolute inset-0 w-3 h-3 rounded-full bg-[#00d6bf] animate-ping opacity-20" style="animation-delay: 1s;"></div>
-          </div>
-          <p class="text-[#4c4148] text-sm md:text-base lg:text-lg transition-colors duration-300 group-hover:text-[#476bde]">
-            Une équipe d'<span class="font-semibold">experts</span> à votre écoute
-          </p>
-        </div>
-      </div>
-
-      <!-- CTA avec animation magnetic -->
-      <div class="mt-10 reveal" style="transition-delay: 0.6s;">
-        <div class="magnetic-wrap inline-block">
+        <!-- CTAs -->
+        <div
+          class="flex flex-wrap items-center gap-4 mb-10"
+          data-aos="fade-up"
+          data-aos-duration="400"
+          data-aos-delay="150"
+        >
           <a
             href="#contact"
-            class="btn-premium inline-flex items-center gap-3 bg-[#00d6bf] text-white px-8 py-4 rounded-full font-semibold text-base md:text-lg shadow-glow-teal group"
+            class="btn btn-accent"
           >
-            <span>Planifier un rendez-vous</span>
-            <svg class="w-5 h-5 transform transition-transform duration-500 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            Démarrer un projet
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
           </a>
+          <a
+            href="#services"
+            class="btn btn-outline"
+          >
+            Découvrir nos services
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div
+          class="flex flex-wrap gap-8 lg:gap-10 pt-8 border-t border-border"
+          data-aos="fade-up"
+          data-aos-duration="400"
+          data-aos-delay="200"
+        >
+          {stats.map((stat) => (
+            <div class="text-left">
+              <div class="text-3xl lg:text-4xl font-bold text-primary">{stat.value}</div>
+              <div class="text-sm text-text-light mt-1">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
 
-    <!-- Image mobile avec animation -->
-    <div class="md:hidden mt-8 reveal-scale">
-      <img
-        src="/images/4.png"
-        alt="Expert industriel"
-        class="w-full max-w-md mx-auto drop-shadow-2xl"
-      />
+      <!-- Right side - Software screenshot in browser frame -->
+      <div
+        class="order-1 lg:order-2 relative"
+        data-aos="fade-left"
+        data-aos-duration="500"
+        data-aos-delay="100"
+      >
+        <!-- Glow effects behind -->
+        <div class="absolute -top-8 -right-8 w-48 h-48 rounded-full -z-10" style="background: radial-gradient(circle, rgba(67,97,238,0.18) 0%, transparent 70%);"></div>
+        <div class="absolute -bottom-6 -left-6 w-36 h-36 rounded-full -z-10" style="background: radial-gradient(circle, rgba(6,214,160,0.12) 0%, transparent 70%);"></div>
+
+        <!-- Browser frame -->
+        <div class="relative rounded-xl overflow-hidden shadow-2xl shadow-primary/15" style="transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);">
+          <!-- macOS title bar -->
+          <div class="flex items-center gap-2 px-4 py-2.5" style="background: #252836; border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <div class="flex gap-1.5">
+              <div class="w-2.5 h-2.5 rounded-full" style="background: #ff5f57;"></div>
+              <div class="w-2.5 h-2.5 rounded-full" style="background: #febc2e;"></div>
+              <div class="w-2.5 h-2.5 rounded-full" style="background: #28c840;"></div>
+            </div>
+            <div class="flex-1 mx-3">
+              <div class="h-5 rounded-md flex items-center px-3" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06);">
+                <span class="text-[10px]" style="color: rgba(255,255,255,0.3);">app.steelmanager.be</span>
+              </div>
+            </div>
+          </div>
+          <!-- Screenshot -->
+          <img
+            src="/images/desk-software.png"
+            alt="Steel Manager - Logiciel 3D de gestion de production"
+            class="w-full h-auto block"
+            style="aspect-ratio: 16/10; object-fit: cover;"
+          />
+        </div>
+
+        <!-- Floating badge -->
+        <div class="absolute -bottom-4 -left-4 lg:-left-8 bg-white rounded-lg shadow-lg px-4 py-3 border border-border hidden sm:flex items-center gap-3" data-aos="fade-up" data-aos-delay="400">
+          <div class="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs font-semibold text-dark">+12% efficacité</div>
+            <div class="text-[10px] text-text-light">dès les premiers mois</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Section divider -->
-  <div class="section-divider mt-16"></div>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2">
+    <span class="text-xs text-text-light">Découvrir</span>
+    <div class="w-5 h-8 rounded-full border-2 border-border flex justify-center pt-1.5">
+      <div class="w-1 h-2 rounded-full bg-primary animate-bounce"></div>
+    </div>
+  </div>
 </section>
+
+<!-- Trust bar - Ils nous font confiance -->
+<div class="bg-white border-y border-border py-6 section-anchor-line" data-aos="fade-up">
+  <p class="text-center text-text-light text-[11px] font-semibold tracking-[0.14em] uppercase mb-5">
+    Ils nous font confiance
+  </p>
+  <div class="trust-carousel" id="trust-carousel">
+    <div class="trust-carousel__track" id="trust-track">
+      {clients.map((client) => (
+        <div class="trust-carousel__item" data-logo>
+          <img
+            src={client.src}
+            alt={client.alt}
+            style="height: 62px; width: auto; max-width: 136px; object-fit: contain;"
+            draggable="false"
+          />
+        </div>
+      ))}
+      {/* Duplicate for seamless loop */}
+      {clients.map((client) => (
+        <div class="trust-carousel__item" data-logo aria-hidden="true">
+          <img
+            src={client.src}
+            alt={client.alt}
+            style="height: 62px; width: auto; max-width: 136px; object-fit: contain;"
+            draggable="false"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .trust-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      black 12%,
+      black 88%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      black 12%,
+      black 88%,
+      transparent 100%
+    );
+  }
+
+  .trust-carousel__track {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    width: max-content;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .trust-carousel__item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: grayscale(1);
+    opacity: 0.38;
+    transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .trust-carousel__item.is-active {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+</style>
+
+<script>
+  function initTrustCarousel() {
+    const carousel = document.getElementById('trust-carousel');
+    const track = document.getElementById('trust-track');
+    if (!carousel || !track) return;
+
+    const logos = track.querySelectorAll('[data-logo]');
+    const speed = 0.5;
+    const halfWidth = track.scrollWidth / 2;
+
+    // Pre-cache every logo center position (relative to track start) — zero DOM reads in the loop
+    const logoCenters = [];
+    logos.forEach((logo) => {
+      logoCenters.push(logo.offsetLeft + logo.offsetWidth / 2);
+    });
+
+    let offset = 0;
+    let paused = false;
+    let lastTime = 0;
+    let carouselLeft = 0;
+    let carouselCenter = 0;
+    let activateRadius = 0;
+
+    function cacheSize() {
+      const r = carousel.getBoundingClientRect();
+      carouselLeft = r.left;
+      carouselCenter = r.width / 2;
+      activateRadius = r.width * 0.28;
+    }
+    cacheSize();
+    window.addEventListener('resize', cacheSize);
+
+    carousel.addEventListener('mouseenter', () => { paused = true; });
+    carousel.addEventListener('mouseleave', () => { paused = false; lastTime = 0; });
+
+    function tick(now) {
+      if (!paused) {
+        if (lastTime === 0) lastTime = now;
+        const delta = Math.min(now - lastTime, 50); // cap delta to avoid jumps after tab switch
+        offset += speed * (delta / 16.667);
+        if (offset >= halfWidth) offset -= halfWidth;
+        track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      }
+      lastTime = paused ? 0 : now;
+
+      // Pure math — no getBoundingClientRect, no layout thrashing
+      const viewCenter = carouselCenter;
+      for (let i = 0; i < logoCenters.length; i++) {
+        const logoScreenPos = logoCenters[i] - offset + carouselLeft;
+        const dist = Math.abs(logoScreenPos - (carouselLeft + viewCenter));
+        const active = dist < activateRadius;
+        if (active && !logos[i].classList.contains('is-active')) {
+          logos[i].classList.add('is-active');
+        } else if (!active && logos[i].classList.contains('is-active')) {
+          logos[i].classList.remove('is-active');
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTrustCarousel);
+  } else {
+    initTrustCarousel();
+  }
+  document.addEventListener('astro:page-load', initTrustCarousel);
+</script>
