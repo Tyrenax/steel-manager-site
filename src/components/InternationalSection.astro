@@ -1,5 +1,5 @@
 ---
-import { readFileSync } from 'node:fs';
+import { Image } from 'astro:assets';
 
 const countries = [
   { flag: '/images/60.png', name: 'Belgique' },
@@ -9,22 +9,17 @@ const countries = [
   { flag: '/images/64.png', name: 'Pologne' },
   { flag: '/images/65.png', name: 'Brésil' },
 ];
-
-import { Image } from 'astro:assets';
-
-const codeEarthRaw = readFileSync(new URL('../../public/images/codeearth.txt', import.meta.url), 'utf-8');
-const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
 ---
 
-<section class="section-spacing relative overflow-hidden section-anchor-line" style="background: linear-gradient(180deg, #f8f9fc 0%, #f2f4fa 40%, #ffffff 100%);">
+<section class="section-spacing relative overflow-hidden section-anchor-line" style="background: linear-gradient(180deg, #0a0e1a 0%, #0d1322 40%, #0a0e1a 100%);">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-start">
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-center">
       <div data-aos="fade-right" data-aos-duration="400">
-        <span class="badge badge-primary mb-5">International</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-dark mb-4 leading-tight">
-          Une présence <span class="text-gradient">internationale</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-[#009CFF]/10 text-[#009CFF] border border-[#009CFF]/20 mb-5">International</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
+          Une présence <span style="background: linear-gradient(135deg, #009CFF, #06d6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">internationale</span>
         </h2>
-        <p class="text-text-light text-lg leading-relaxed mb-7 max-w-2xl">
+        <p class="text-white/60 text-lg leading-relaxed mb-7 max-w-2xl">
           Nos solutions accompagnent des industriels à travers l'Europe et au-delà. Une même méthode, adaptée à chaque réalité locale.
         </p>
 
@@ -35,7 +30,7 @@ const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
               data-aos="fade-up"
               data-aos-delay={index * 45}
             >
-              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-white shadow-sm flex-shrink-0">
+              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-white/10 shadow-sm flex-shrink-0">
                 <Image
                   src={country.flag}
                   alt={country.name}
@@ -44,45 +39,25 @@ const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
                   class="w-full h-full object-cover"
                 />
               </div>
-              <p class="text-dark font-semibold text-sm">{country.name}</p>
+              <p class="text-white font-semibold text-sm">{country.name}</p>
             </div>
           ))}
         </div>
 
-        <div class="inline-flex items-center gap-3 px-5 py-3 rounded-xl bg-white border border-border shadow-sm">
-          <div class="text-3xl font-bold text-primary">150+</div>
-          <div class="text-sm text-text-light leading-tight">projets déployés<br/>à l'international</div>
+        <div class="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/10 shadow-sm" style="background: rgba(255,255,255,0.04);">
+          <div class="text-3xl font-bold text-[#009CFF]">150+</div>
+          <div class="text-sm text-white/50 leading-tight">projets déployés<br/>à l'international</div>
         </div>
       </div>
 
+      <!-- Globe 3D hologramme -->
       <div
         class="relative intl-visual"
         data-aos="fade-left"
         data-aos-duration="450"
       >
-        {/*
-        <div class="map-shell">
-          <div class="map-shell__badge">
-            <span>Interventions</span>
-            <strong>Europe & Amérique du Sud</strong>
-          </div>
-
-          <img
-            src="/images/Earth.png"
-            alt="Présence mondiale DevTeix"
-            class="relative w-full max-w-[335px] mx-auto h-auto"
-            style="filter: drop-shadow(0 18px 28px rgba(67,97,238,0.16)); transform: translateX(-6px);"
-            loading="lazy"
-          />
-        </div>
-        */}
-
-        <div class="map-shell map-shell--cartoon">
-          <div class="map-shell__badge">
-            <span>Interventions</span>
-            <strong>Europe & Amérique du Sud</strong>
-          </div>
-          <div class="earth-cartoon" set:html={codeEarthSvg} />
+        <div id="earth-globe">
+          <div id="earth-glow"></div>
         </div>
       </div>
     </div>
@@ -96,122 +71,158 @@ const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
     gap: 0.7rem;
     padding: 0.55rem 0.65rem;
     border-radius: 12px;
-    border: 1px solid rgba(108, 114, 147, 0.18);
-    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .country-row:hover {
     transform: translateY(-1px);
-    border-color: rgba(67, 97, 238, 0.28);
-    box-shadow: 0 10px 16px -14px rgba(26, 29, 41, 0.6);
+    border-color: rgba(0, 156, 255, 0.3);
+    box-shadow: 0 10px 16px -14px rgba(0, 156, 255, 0.3);
   }
 
-  .map-shell {
-    position: relative;
-    border-radius: 22px;
-    border: none;
-    background:
-      radial-gradient(ellipse 90% 75% at 86% 14%, rgba(67, 97, 238, 0.16), transparent 74%),
-      radial-gradient(ellipse 78% 68% at 10% 95%, rgba(6, 214, 160, 0.14), transparent 72%),
-      linear-gradient(180deg, rgba(255,255,255,0.38) 0%, rgba(248,249,252,0.2) 100%);
-    padding: 1.2rem;
-    min-height: 100%;
-    overflow: visible;
-  }
-
-  .map-shell::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background-image:
-      linear-gradient(90deg, rgba(67, 97, 238, 0.04) 1px, transparent 1px),
-      linear-gradient(rgba(67, 97, 238, 0.04) 1px, transparent 1px);
-    background-size: 28px 28px;
-    opacity: 0.34;
-    pointer-events: none;
-  }
-
-  .map-shell::after {
-    content: "";
-    position: absolute;
-    inset: 14% 10% 10% 10%;
-    border-radius: 24px;
-    background:
-      radial-gradient(circle at 68% 42%, rgba(67, 97, 238, 0.14), transparent 58%),
-      radial-gradient(circle at 32% 68%, rgba(6, 214, 160, 0.12), transparent 62%);
-    filter: blur(10px);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .map-shell__badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 2;
-    display: inline-flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    padding: 0.55rem 0.75rem;
-    border-radius: 12px;
-    border: 1px solid rgba(67, 97, 238, 0.16);
-    background: rgba(255, 255, 255, 0.84);
-    box-shadow: 0 6px 14px -12px rgba(26, 29, 41, 0.45);
-    font-size: 0.68rem;
-    color: var(--color-text-light);
-    line-height: 1.25;
-  }
-
-  .map-shell__badge strong {
-    color: var(--color-dark);
-    font-size: 0.7rem;
-    font-weight: 600;
-  }
-
-  .map-shell--cartoon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 280px;
-    overflow: visible;
-  }
-
-  .earth-cartoon {
+  #earth-globe {
     width: 100%;
-    max-width: 310px;
+    aspect-ratio: 1;
+    max-width: 420px;
     margin: 0 auto;
-    transform: translateX(-4px);
     position: relative;
-    z-index: 1;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1.5s ease-in;
   }
 
-  .earth-cartoon :global(svg) {
+  #earth-globe:global(.earth-ready) {
+    opacity: 1;
+  }
+
+  #earth-globe::before {
+    content: none;
+  }
+
+  #earth-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 100%;
-    height: auto;
-    display: block;
-    filter: saturate(0.98) contrast(1.04);
-  }
-
-  .earth-cartoon :global(.box) {
-    overflow: visible;
-  }
-
-  .earth-cartoon :global(#Moon) {
-    animation: earth-moon-spin 190s linear infinite;
-    transform-origin: center;
-    opacity: 0.86;
-  }
-
-  @keyframes earth-moon-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    height: 100%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center, rgba(0,156,255,0.05) 25%, rgba(0,156,255,0.12) 53%, rgba(0,156,255,0.05) 56%, rgba(0,156,255,0) 70%);
+    z-index: 200;
+    pointer-events: none;
   }
 
   @media (min-width: 1024px) {
     .intl-visual {
-      margin-top: 3.6rem;
+      margin-top: 0;
     }
   }
 </style>
+
+<script src="/js/miniature.earth.core.js"></script>
+<script>
+  function initHologramGlobe() {
+    const container = document.getElementById('earth-globe');
+    if (!container || container.dataset.initialized) return;
+    container.dataset.initialized = 'true';
+
+    var myearth = new Earth('earth-globe', {
+      location: { lat: 48, lng: 10 },
+      light: 'none',
+      mapImage: '/images/hologram/hologram-map.svg',
+      transparent: true,
+      autoRotate: true,
+      autoRotateSpeed: 0.8,
+      autoRotateDelay: 100,
+      autoRotateStart: 1500,
+    });
+
+    myearth.addEventListener('ready', function () {
+      this.startAutoRotate();
+
+      // Marqueurs pour les pays présents
+      var markers = [
+        { lat: 50.85, lng: 4.35, label: 'Belgique' },
+        { lat: 46.60, lng: 2.33, label: 'France' },
+        { lat: 52.13, lng: 5.29, label: 'Pays-Bas' },
+        { lat: 51.16, lng: 10.45, label: 'Allemagne' },
+        { lat: 51.92, lng: 19.15, label: 'Pologne' },
+        { lat: -14.24, lng: -51.93, label: 'Brésil' },
+      ];
+
+      // Lignes de connexion entre les pays
+      var connections = [
+        [50.85, 4.35, 46.60, 2.33],
+        [50.85, 4.35, 52.13, 5.29],
+        [50.85, 4.35, 51.16, 10.45],
+        [50.85, 4.35, 51.92, 19.15],
+        [50.85, 4.35, -14.24, -51.93],
+        [46.60, 2.33, 51.16, 10.45],
+        [52.13, 5.29, 51.16, 10.45],
+        [51.16, 10.45, 51.92, 19.15],
+      ];
+
+      var line = {
+        color: '#009CFF',
+        opacity: 0.35,
+        hairline: true,
+        offset: -0.5,
+      };
+
+      for (var i in connections) {
+        line.locations = [
+          { lat: connections[i][0], lng: connections[i][1] },
+          { lat: connections[i][2], lng: connections[i][3] },
+        ];
+        this.addLine(line);
+      }
+
+      // Marqueurs lumineux sur chaque pays
+      for (var m = 0; m < markers.length; m++) {
+        this.addSprite({
+          image: '/images/hologram/hologram-shine.svg',
+          location: { lat: markers[m].lat, lng: markers[m].lng },
+          scale: 0.4,
+          offset: -0.5,
+          opacity: 0.7,
+        });
+      }
+
+      // Sprites animés
+      var sprites = [];
+      for (var s = 0; s < 6; s++) {
+        sprites[s] = this.addSprite({
+          image: '/images/hologram/hologram-shine.svg',
+          scale: 0.01,
+          offset: -0.5,
+          opacity: 0.5,
+        });
+        pulse(s);
+      }
+
+      function pulse(index) {
+        var loc = markers[Math.floor(Math.random() * markers.length)];
+        sprites[index].location = { lat: loc.lat, lng: loc.lng };
+        sprites[index].animate('scale', 0.5, {
+          duration: 320,
+          complete: function () {
+            this.animate('scale', 0.01, {
+              duration: 320,
+              complete: function () {
+                setTimeout(function () { pulse(index); }, 100 + Math.random() * 300);
+              },
+            });
+          },
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHologramGlobe);
+  } else {
+    initHologramGlobe();
+  }
+  document.addEventListener('astro:page-load', initHologramGlobe);
+</script>
