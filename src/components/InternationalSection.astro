@@ -120,8 +120,8 @@ const countries = [
   }
 </style>
 
-<script src="/js/miniature.earth.core.js"></script>
-<script>
+<script is:inline src="/js/miniature.earth.core.js"></script>
+<script is:inline>
   function initHologramGlobe() {
     const container = document.getElementById('earth-globe');
     if (!container || container.dataset.initialized) return;
