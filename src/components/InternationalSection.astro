@@ -2,12 +2,12 @@
 import { Image } from 'astro:assets';
 
 const countries = [
-  { flag: '/images/60.png', name: 'Belgique' },
-  { flag: '/images/61.png', name: 'France' },
-  { flag: '/images/62.png', name: 'Pays-Bas' },
-  { flag: '/images/63.png', name: 'Allemagne' },
-  { flag: '/images/64.png', name: 'Pologne' },
-  { flag: '/images/65.png', name: 'Brésil' },
+  { flag: '/images/60.png', name: 'Belgique', lat: 50.85, lng: 4.35 },
+  { flag: '/images/61.png', name: 'France', lat: 46.60, lng: 2.33 },
+  { flag: '/images/62.png', name: 'Pays-Bas', lat: 52.13, lng: 5.29 },
+  { flag: '/images/63.png', name: 'Allemagne', lat: 51.16, lng: 10.45 },
+  { flag: '/images/64.png', name: 'Pologne', lat: 51.92, lng: 19.15 },
+  { flag: '/images/65.png', name: 'Brésil', lat: -14.24, lng: -51.93 },
 ];
 ---
 
@@ -29,6 +29,9 @@ const countries = [
               class="country-row"
               data-aos="fade-up"
               data-aos-delay={index * 45}
+              data-lat={country.lat}
+              data-lng={country.lng}
+              style="cursor: pointer;"
             >
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-white/10 shadow-sm flex-shrink-0">
                 <Image
@@ -76,7 +79,8 @@ const countries = [
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .country-row:hover {
+  .country-row:hover,
+  .country-row--active {
     transform: translateY(-1px);
     border-color: rgba(0, 156, 255, 0.3);
     box-shadow: 0 10px 16px -14px rgba(0, 156, 255, 0.3);
@@ -127,6 +131,7 @@ const countries = [
     if (!container || container.dataset.initialized) return;
     container.dataset.initialized = 'true';
 
+    window.__hologramEarth = null;
     var myearth = new Earth('earth-globe', {
       location: { lat: 48, lng: 10 },
       light: 'none',
@@ -136,9 +141,13 @@ const countries = [
       autoRotateSpeed: 0.8,
       autoRotateDelay: 100,
       autoRotateStart: 1500,
+      zoom: 1.0,
+      enableZoom: true,
+      zoomSpeed: 0.5,
     });
 
     myearth.addEventListener('ready', function () {
+      window.__hologramEarth = myearth;
       this.startAutoRotate();
 
       // Marqueurs pour les pays présents
@@ -218,6 +227,23 @@ const countries = [
       }
     });
   }
+
+  // Click sur un pays → rotation du globe
+  document.querySelectorAll('.country-row[data-lat]').forEach(function(row) {
+    row.addEventListener('click', function() {
+      var earth = window.__hologramEarth;
+      if (!earth) return;
+      var lat = parseFloat(this.dataset.lat);
+      var lng = parseFloat(this.dataset.lng);
+      earth.resetAutoRotate();
+      earth.goTo({ lat: lat, lng: lng }, { duration: 1000 });
+      setTimeout(function() { earth.startAutoRotate(); }, 4000);
+
+      // Highlight actif
+      document.querySelectorAll('.country-row').forEach(function(r) { r.classList.remove('country-row--active'); });
+      this.classList.add('country-row--active');
+    });
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initHologramGlobe);
