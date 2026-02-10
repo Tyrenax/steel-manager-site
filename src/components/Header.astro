@@ -31,6 +31,7 @@ import { Image } from 'astro:assets';
           <a
             href={item.href}
             class="nav-link px-4 py-2 text-dark hover:text-primary text-sm font-medium transition-colors rounded-md hover:bg-primary/5"
+            data-nav-link
           >
             {item.label}
           </a>
@@ -88,10 +89,11 @@ import { Image } from 'astro:assets';
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="flex items-center justify-between px-4 py-3 text-dark hover:text-primary hover:bg-light rounded-md text-base font-medium transition-all"
+          class="nav-link-mobile flex items-center justify-between px-4 py-3 text-dark hover:text-primary hover:bg-light rounded-md text-base font-medium transition-all"
+          data-nav-link
         >
           {item.label}
-          <svg class="w-4 h-4 text-text-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="mobile-link-arrow w-4 h-4 text-text-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
         </a>
@@ -115,6 +117,39 @@ import { Image } from 'astro:assets';
     </div>
   </div>
 </header>
+
+<style>
+  .nav-link.is-active {
+    color: var(--color-primary);
+    background: rgba(67, 97, 238, 0.08);
+    position: relative;
+  }
+
+  .nav-link.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: 0.34rem;
+    height: 2px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, rgba(67, 97, 238, 0.92), rgba(6, 214, 160, 0.9));
+  }
+
+  .nav-link-mobile.is-active {
+    color: var(--color-primary);
+    background: rgba(67, 97, 238, 0.08);
+  }
+
+  .nav-link-mobile .mobile-link-arrow {
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-link-mobile.is-active .mobile-link-arrow {
+    color: var(--color-primary);
+    transform: translateX(2px);
+  }
+</style>
 
 <script>
   const menuBtn = document.getElementById('mobile-menu-btn');
@@ -145,4 +180,82 @@ import { Image } from 'astro:assets';
       header?.classList.remove('shadow-sm');
     }
   });
+
+  function initScrollSpy() {
+    const navLinks = Array.from(document.querySelectorAll('a[data-nav-link]')) as HTMLAnchorElement[];
+    if (!navLinks.length) return;
+
+    const sectionLinks = navLinks
+      .map((link) => link.getAttribute('href') || '')
+      .filter((href) => href.startsWith('#') && href.length > 1);
+    const uniqueIds = Array.from(new Set(sectionLinks.map((href) => href.slice(1))));
+    const sections = uniqueIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    if (!sections.length) return;
+
+    let ticking = false;
+
+    function setActive(id: string) {
+      navLinks.forEach((link) => {
+        const isActive = link.getAttribute('href') === `#${id}`;
+        link.classList.toggle('is-active', isActive);
+        if (isActive) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function updateActive() {
+      const headerOffset = (header as HTMLElement | null)?.offsetHeight ?? 80;
+      const marker = window.scrollY + headerOffset + 90;
+
+      let currentId = sections[0].id;
+      for (const section of sections) {
+        if (section.offsetTop <= marker) {
+          currentId = section.id;
+        }
+      }
+
+      const scrollBottom = window.scrollY + window.innerHeight;
+      const pageBottom = document.documentElement.scrollHeight - 4;
+      if (scrollBottom >= pageBottom) {
+        currentId = sections[sections.length - 1].id;
+      }
+
+      setActive(currentId);
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActive);
+        ticking = true;
+      }
+    }
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        const href = link.getAttribute('href');
+        if (href?.startsWith('#')) {
+          const id = href.slice(1);
+          setActive(id);
+        }
+      });
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateActive();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollSpy);
+  } else {
+    initScrollSpy();
+  }
+  document.addEventListener('astro:page-load', initScrollSpy);
 </script>
