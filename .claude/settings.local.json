@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:steel-manager.be)",
+      "Bash(npm run dev:*)",
+      "Bash(node:*)",
+      "Bash(npx playwright install:*)",
+      "Bash(git checkout:*)",
+      "Bash(npx playwright:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npx puppeteer:*)",
+      "Bash(npm install:*)",
+      "Bash(start \"\" \"C:\\\\Users\\\\Maxime\\\\Documents\\\\SitewebSteel\\\\steel-manager-site\\\\site-1-hero.png\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\Maxime\\\\Documents\\\\SitewebSteel\\\\steel-manager-site\\\\site-2-services.png\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\Maxime\\\\Documents\\\\SitewebSteel\\\\steel-manager-site\\\\site-3-solutions.png\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\Maxime\\\\Documents\\\\SitewebSteel\\\\steel-manager-site\\\\site-4-equipe.png\")",
+      "Bash(start \"\" \"C:\\\\Users\\\\Maxime\\\\Documents\\\\SitewebSteel\\\\steel-manager-site\\\\site-5-contact.png\")",
+      "Bash(ls:*)",
+      "WebSearch",
+      "Bash(npm run build:*)"
+    ]
+  }
+}

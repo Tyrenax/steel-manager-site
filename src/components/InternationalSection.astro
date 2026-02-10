@@ -109,15 +109,15 @@ const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
 
   .map-shell {
     position: relative;
-    border-radius: 18px;
-    border: 1px solid rgba(67, 97, 238, 0.12);
+    border-radius: 22px;
+    border: none;
     background:
-      radial-gradient(ellipse 82% 65% at 84% 18%, rgba(67, 97, 238, 0.07), transparent 74%),
-      radial-gradient(ellipse 70% 60% at 10% 92%, rgba(6, 214, 160, 0.07), transparent 72%),
-      linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(248,249,252,0.92) 100%);
-    padding: 1.1rem;
+      radial-gradient(ellipse 90% 75% at 86% 14%, rgba(67, 97, 238, 0.16), transparent 74%),
+      radial-gradient(ellipse 78% 68% at 10% 95%, rgba(6, 214, 160, 0.14), transparent 72%),
+      linear-gradient(180deg, rgba(255,255,255,0.38) 0%, rgba(248,249,252,0.2) 100%);
+    padding: 1.2rem;
     min-height: 100%;
-    overflow: clip;
+    overflow: visible;
   }
 
   .map-shell::before {
@@ -129,7 +129,20 @@ const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
       linear-gradient(90deg, rgba(67, 97, 238, 0.04) 1px, transparent 1px),
       linear-gradient(rgba(67, 97, 238, 0.04) 1px, transparent 1px);
     background-size: 28px 28px;
-    opacity: 0.55;
+    opacity: 0.34;
+    pointer-events: none;
+  }
+
+  .map-shell::after {
+    content: "";
+    position: absolute;
+    inset: 14% 10% 10% 10%;
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at 68% 42%, rgba(67, 97, 238, 0.14), transparent 58%),
+      radial-gradient(circle at 32% 68%, rgba(6, 214, 160, 0.12), transparent 62%);
+    filter: blur(10px);
+    z-index: 0;
     pointer-events: none;
   }
 
@@ -169,14 +182,16 @@ const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
     width: 100%;
     max-width: 310px;
     margin: 0 auto;
-    transform: translateX(-6px);
+    transform: translateX(-4px);
+    position: relative;
+    z-index: 1;
   }
 
   .earth-cartoon :global(svg) {
     width: 100%;
     height: auto;
     display: block;
-    filter: saturate(0.93) contrast(1.03);
+    filter: saturate(0.98) contrast(1.04);
   }
 
   .earth-cartoon :global(.box) {
@@ -184,9 +199,9 @@ const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
   }
 
   .earth-cartoon :global(#Moon) {
-    animation: earth-moon-spin 320s linear infinite;
+    animation: earth-moon-spin 190s linear infinite;
     transform-origin: center;
-    opacity: 0.52;
+    opacity: 0.86;
   }
 
   @keyframes earth-moon-spin {
