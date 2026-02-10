@@ -13,6 +13,7 @@ const solutions = [
   { icon: '/images/23.png', label: 'Qualité' },
   { icon: '/images/24.png', label: 'Finance' },
 ];
+import { Image } from 'astro:assets';
 ---
 
 <section id="processus" class="process-section process-section--gradient section-anchor-line section-spacing">
@@ -32,9 +33,11 @@ const solutions = [
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5 mb-9" data-aos="fade-up" data-aos-delay="90">
       {solutions.map((solution) => (
         <div class="process-item">
-          <img
+          <Image
             src={solution.icon}
             alt={solution.label}
+            width={64}
+            height={64}
             style="width: 64px; height: 64px; object-fit: contain;"
             class="process-item__icon"
           />

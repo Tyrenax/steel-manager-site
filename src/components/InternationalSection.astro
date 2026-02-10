@@ -10,6 +10,8 @@ const countries = [
   { flag: '/images/65.png', name: 'Brésil' },
 ];
 
+import { Image } from 'astro:assets';
+
 const codeEarthRaw = readFileSync(new URL('../../public/images/codeearth.txt', import.meta.url), 'utf-8');
 const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
 ---
@@ -34,11 +36,12 @@ const codeEarthSvg = codeEarthRaw.match(/<svg[\s\S]*<\/svg>/)?.[0] ?? '';
               data-aos-delay={index * 45}
             >
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-white shadow-sm flex-shrink-0">
-                <img
+                <Image
                   src={country.flag}
                   alt={country.name}
+                  width={44}
+                  height={44}
                   class="w-full h-full object-cover"
-                  loading="lazy"
                 />
               </div>
               <p class="text-dark font-semibold text-sm">{country.name}</p>

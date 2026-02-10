@@ -14,6 +14,7 @@ const products = [
   { label: 'Steel Manager', href: 'https://steel-manager.be/fr/', external: true },
   { label: 'Wood Manager', href: 'https://wood-manager.be/fr/', external: true },
 ];
+import { Image } from 'astro:assets';
 ---
 
 <footer class="bg-dark py-12 lg:py-16">
@@ -23,7 +24,7 @@ const products = [
       <!-- Brand -->
       <div class="col-span-2 md:col-span-1">
         <a href="/" class="inline-block mb-4">
-          <img src="/images/DevTeix.png" alt="DevTeix" style="height: 28px; width: auto;" class="brightness-0 invert" />
+          <Image src="/images/DevTeix.png" alt="DevTeix" width={140} height={28} style="height: 58px; width: auto;" class="brightness-0 invert" />
         </a>
         <p class="text-white/50 text-sm leading-relaxed mb-4">
           Développement sur mesure pour l'industrie et les métiers complexes.
@@ -123,10 +124,10 @@ const products = [
         &copy; {year} DevTeix. Tous droits réservés.
       </p>
       <div class="flex items-center gap-6">
-        <a href="#" class="text-white/30 text-xs hover:text-white/60 transition-colors">
+        <a href="/steel-manager-mentions-legales.pdf" target="_blank" rel="noopener noreferrer" class="text-white/30 text-xs hover:text-white/60 transition-colors">
           Mentions légales
         </a>
-        <a href="#" class="text-white/30 text-xs hover:text-white/60 transition-colors">
+        <a href="/steel-manager-mentions-legales.pdf" target="_blank" rel="noopener noreferrer" class="text-white/30 text-xs hover:text-white/60 transition-colors">
           Confidentialité
         </a>
       </div>

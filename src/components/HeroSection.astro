@@ -15,6 +15,7 @@ const clients = [
   { src: '/images/72.png', alt: 'Brafer' },
   { src: '/images/66.png', alt: 'Iemants Steel Constructions' },
 ];
+import { Image } from 'astro:assets';
 ---
 
 <section class="relative min-h-[84vh] flex items-center section-hero overflow-hidden">
@@ -128,9 +129,12 @@ const clients = [
             </div>
           </div>
           <!-- Screenshot -->
-          <img
+          <Image
             src="/images/desk-software.png"
             alt="Steel Manager - Logiciel 3D de gestion de production"
+            width={1200}
+            height={750}
+            loading="eager"
             class="w-full h-auto block"
             style="aspect-ratio: 16/10; object-fit: cover;"
           />
@@ -170,9 +174,11 @@ const clients = [
     <div class="trust-carousel__track" id="trust-track">
       {clients.map((client) => (
         <div class="trust-carousel__item" data-logo>
-          <img
+          <Image
             src={client.src}
             alt={client.alt}
+            width={136}
+            height={62}
             style="height: 62px; width: auto; max-width: 136px; object-fit: contain;"
             draggable="false"
           />
@@ -181,9 +187,11 @@ const clients = [
       {/* Duplicate for seamless loop */}
       {clients.map((client) => (
         <div class="trust-carousel__item" data-logo aria-hidden="true">
-          <img
+          <Image
             src={client.src}
             alt={client.alt}
+            width={136}
+            height={62}
             style="height: 62px; width: auto; max-width: 136px; object-fit: contain;"
             draggable="false"
           />
