@@ -8,6 +8,10 @@ const countries = [
   { flag: '/images/63.png', name: 'Allemagne', lat: 51.16, lng: 10.45 },
   { flag: '/images/64.png', name: 'Pologne', lat: 51.92, lng: 19.15 },
   { flag: '/images/65.png', name: 'Brésil', lat: -14.24, lng: -51.93 },
+  { flag: '/images/Algerie.png', name: 'Algérie', lat: 28.03, lng: 1.66 },
+  { flag: '/images/arabie.png', name: 'Arabie saoudite', lat: 23.89, lng: 45.08 },
+  { flag: '/images/autriche.png', name: 'Autriche', lat: 47.52, lng: 14.55 },
+  { flag: '/images/suisse.png', name: 'Suisse', lat: 46.82, lng: 8.23 },
 ];
 ---
 
@@ -15,8 +19,8 @@ const countries = [
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-center">
       <div data-aos="fade-right" data-aos-duration="400">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-[#009CFF]/10 text-[#009CFF] border border-[#009CFF]/20 mb-5">International</span>
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
+        <span class="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-md bg-[#009CFF]/10 text-[#009CFF] border border-[#009CFF]/20 mb-5">International</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight">
           Une présence <span style="background: linear-gradient(135deg, #009CFF, #06d6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">internationale</span>
         </h2>
         <p class="text-white/60 text-lg leading-relaxed mb-7 max-w-2xl">
@@ -158,6 +162,10 @@ const countries = [
         { lat: 51.16, lng: 10.45, label: 'Allemagne' },
         { lat: 51.92, lng: 19.15, label: 'Pologne' },
         { lat: -14.24, lng: -51.93, label: 'Brésil' },
+        { lat: 28.03, lng: 1.66, label: 'Algérie' },
+        { lat: 23.89, lng: 45.08, label: 'Arabie saoudite' },
+        { lat: 47.52, lng: 14.55, label: 'Autriche' },
+        { lat: 46.82, lng: 8.23, label: 'Suisse' },
       ];
 
       // Lignes de connexion entre les pays
@@ -167,9 +175,15 @@ const countries = [
         [50.85, 4.35, 51.16, 10.45],
         [50.85, 4.35, 51.92, 19.15],
         [50.85, 4.35, -14.24, -51.93],
+        [50.85, 4.35, 28.03, 1.66],
+        [50.85, 4.35, 23.89, 45.08],
+        [50.85, 4.35, 47.52, 14.55],
+        [50.85, 4.35, 46.82, 8.23],
         [46.60, 2.33, 51.16, 10.45],
         [52.13, 5.29, 51.16, 10.45],
         [51.16, 10.45, 51.92, 19.15],
+        [46.82, 8.23, 47.52, 14.55],
+        [46.60, 2.33, 28.03, 1.66],
       ];
 
       var line = {
@@ -200,7 +214,7 @@ const countries = [
 
       // Sprites animés
       var sprites = [];
-      for (var s = 0; s < 6; s++) {
+      for (var s = 0; s < 8; s++) {
         sprites[s] = this.addSprite({
           image: '/images/hologram/hologram-shine.svg',
           scale: 0.01,
