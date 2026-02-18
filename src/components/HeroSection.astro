@@ -19,6 +19,7 @@ const clients = [
   { src: '/images/plmaitre.png', alt: 'PLMaitre' },
 ];
 import { Image } from 'astro:assets';
+import heroImg from '../assets/Hero.png';
 ---
 
 <section class="relative min-h-[84vh] flex items-center section-hero overflow-hidden">
@@ -133,11 +134,13 @@ import { Image } from 'astro:assets';
           </div>
           <!-- Screenshot -->
           <Image
-            src="/images/Hero.png"
+            src={heroImg}
             alt="Steel Manager - Logiciel 3D de gestion de production"
             width={1200}
             height={750}
             loading="eager"
+            format="webp"
+            quality={80}
             class="w-full h-auto block"
             style="aspect-ratio: 16/10; object-fit: cover;"
           />
