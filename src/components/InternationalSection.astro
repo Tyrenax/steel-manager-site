@@ -1,30 +1,26 @@
 ---
 import { Image } from 'astro:assets';
+import { useTranslations, getCountriesData } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
 
-const countries = [
-  { flag: '/images/60.png', name: 'Belgique', lat: 50.85, lng: 4.35 },
-  { flag: '/images/61.png', name: 'France', lat: 46.60, lng: 2.33 },
-  { flag: '/images/62.png', name: 'Pays-Bas', lat: 52.13, lng: 5.29 },
-  { flag: '/images/63.png', name: 'Allemagne', lat: 51.16, lng: 10.45 },
-  { flag: '/images/64.png', name: 'Pologne', lat: 51.92, lng: 19.15 },
-  { flag: '/images/65.png', name: 'Brésil', lat: -14.24, lng: -51.93 },
-  { flag: '/images/Algerie.png', name: 'Algérie', lat: 28.03, lng: 1.66 },
-  { flag: '/images/arabie.png', name: 'Arabie saoudite', lat: 23.89, lng: 45.08 },
-  { flag: '/images/autriche.png', name: 'Autriche', lat: 47.52, lng: 14.55 },
-  { flag: '/images/suisse.png', name: 'Suisse', lat: 46.82, lng: 8.23 },
-];
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
+const countries = getCountriesData(locale);
+
+// Prepare markers JSON for inline script
+const markersJson = JSON.stringify(countries.map(c => ({ lat: c.lat, lng: c.lng, label: c.name })));
 ---
 
 <section class="section-spacing relative overflow-hidden section-anchor-line" style="background: linear-gradient(180deg, #0a0e1a 0%, #0d1322 40%, #0a0e1a 100%);">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-center">
       <div data-aos="fade-right" data-aos-duration="400">
-        <span class="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-md bg-[#009CFF]/10 text-[#009CFF] border border-[#009CFF]/20 mb-5">International</span>
+        <span class="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-md bg-[#009CFF]/10 text-[#009CFF] border border-[#009CFF]/20 mb-5">{t('international.badge')}</span>
         <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight">
-          Une présence <span style="background: linear-gradient(135deg, #009CFF, #06d6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">internationale</span>
+          {t('international.heading.prefix')}<span style="background: linear-gradient(135deg, #009CFF, #06d6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{t('international.heading.highlight')}</span>{t('international.heading.suffix')}
         </h2>
         <p class="text-white/60 text-lg leading-relaxed mb-7 max-w-2xl">
-          Nos solutions accompagnent des industriels à travers l'Europe et au-delà. Une même méthode, adaptée à chaque réalité locale.
+          {t('international.description')}
         </p>
 
         <div class="grid sm:grid-cols-2 gap-3 mb-7">
@@ -52,8 +48,8 @@ const countries = [
         </div>
 
         <div class="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/10 shadow-sm" style="background: rgba(255,255,255,0.04);">
-          <div class="text-3xl font-bold text-[#009CFF]">150+</div>
-          <div class="text-sm text-white/50 leading-tight">projets déployés<br/>à l'international</div>
+          <div class="text-3xl font-bold text-[#009CFF]">{t('international.stat.value')}</div>
+          <div class="text-sm text-white/50 leading-tight" set:html={t('international.stat.label').replace('\n', '<br/>')}></div>
         </div>
       </div>
 
@@ -129,9 +125,9 @@ const countries = [
 </style>
 
 <script is:inline src="/js/miniature.earth.core.js"></script>
-<script is:inline>
+<script is:inline define:vars={{ markersJson }}>
   function initHologramGlobe() {
-    const container = document.getElementById('earth-globe');
+    var container = document.getElementById('earth-globe');
     if (!container || container.dataset.initialized) return;
     container.dataset.initialized = 'true';
 
@@ -154,19 +150,7 @@ const countries = [
       window.__hologramEarth = myearth;
       this.startAutoRotate();
 
-      // Marqueurs pour les pays présents
-      var markers = [
-        { lat: 50.85, lng: 4.35, label: 'Belgique' },
-        { lat: 46.60, lng: 2.33, label: 'France' },
-        { lat: 52.13, lng: 5.29, label: 'Pays-Bas' },
-        { lat: 51.16, lng: 10.45, label: 'Allemagne' },
-        { lat: 51.92, lng: 19.15, label: 'Pologne' },
-        { lat: -14.24, lng: -51.93, label: 'Brésil' },
-        { lat: 28.03, lng: 1.66, label: 'Algérie' },
-        { lat: 23.89, lng: 45.08, label: 'Arabie saoudite' },
-        { lat: 47.52, lng: 14.55, label: 'Autriche' },
-        { lat: 46.82, lng: 8.23, label: 'Suisse' },
-      ];
+      var markers = JSON.parse(markersJson);
 
       // Lignes de connexion entre les pays
       var connections = [

@@ -1,32 +1,32 @@
 ---
-const solutions = [
-  { icon: '/images/13.png', label: 'Production' },
-  { icon: '/images/14.png', label: 'Optimisation' },
-  { icon: '/images/15.png', label: 'CNC' },
-  { icon: '/images/16.png', label: 'Stocks' },
-  { icon: '/images/17.png', label: 'Achats' },
-  { icon: '/images/18.png', label: 'IA' },
-  { icon: '/images/19.png', label: 'Planning' },
-  { icon: '/images/20.png', label: 'Livraison' },
-  { icon: '/images/21.png', label: '3D' },
-  { icon: '/images/22.png', label: 'Temps' },
-  { icon: '/images/23.png', label: 'Qualité' },
-  { icon: '/images/24.png', label: 'Finance' },
-];
+import { useTranslations, getProcessLabels } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
 import { Image } from 'astro:assets';
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
+const labels = getProcessLabels(locale);
+
+const iconPaths = [
+  '/images/13.png', '/images/14.png', '/images/15.png', '/images/16.png',
+  '/images/17.png', '/images/18.png', '/images/19.png', '/images/20.png',
+  '/images/21.png', '/images/22.png', '/images/23.png', '/images/24.png',
+];
+
+const solutions = labels.map((label, i) => ({ icon: iconPaths[i], label }));
 ---
 
 <section id="processus" class="process-section process-section--gradient section-anchor-line section-spacing">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="text-center mb-9" data-aos="fade-up">
       <span class="text-primary text-base font-semibold tracking-wider uppercase">
-        Cas d'usage
+        {t('process.badge')}
       </span>
       <h2 class="text-4xl sm:text-5xl font-bold text-dark mt-2 mb-3">
-        Couvrez tous vos processus
+        {t('process.heading')}
       </h2>
       <p class="text-text-light text-lg max-w-2xl mx-auto">
-        De l'atelier au pilotage global, vos flux restent connectés et lisibles.
+        {t('process.description')}
       </p>
     </div>
 
@@ -51,7 +51,7 @@ import { Image } from 'astro:assets';
     <div class="text-center" data-aos="fade-up" data-aos-delay="150">
       <a href="#contact" class="process-cta">
         <span class="process-cta__dot"></span>
-        <span class="process-cta__text">Tout autre processus industriel spécifique</span>
+        <span class="process-cta__text">{t('process.cta')}</span>
         <svg class="process-cta__arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
         </svg>

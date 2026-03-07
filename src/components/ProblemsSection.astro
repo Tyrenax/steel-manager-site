@@ -1,30 +1,13 @@
 ---
-const problems = [
-  {
-    problem: "Mon ERP ne colle pas à mon métier",
-    solution: "Nous développons les modules qui vous manquent, connectés à votre système existant.",
-    detail: "Compatible SAP, Odoo, Sage, ou votre ERP maison",
-    icon: "puzzle"
-  },
-  {
-    problem: "Mes équipes terrain travaillent encore sur papier",
-    solution: "Apps mobiles sur mesure : pointage, contrôle, inventaire. Même hors connexion.",
-    detail: "Déployé auprès de +200 utilisateurs terrain",
-    icon: "clipboard"
-  },
-  {
-    problem: "Je n'ai pas de visibilité sur ma production",
-    solution: "Tableaux de bord temps réel, KPIs automatisés, alertes intelligentes.",
-    detail: "Données consolidées en un seul endroit",
-    icon: "chart"
-  },
-  {
-    problem: "Mes systèmes ne se parlent pas",
-    solution: "Intégration de tous vos outils : ERP, machines, capteurs IoT, APIs tierces.",
-    detail: "Zéro double saisie, flux automatisés",
-    icon: "link"
-  }
-];
+import { useTranslations, getProblemsData } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
+const problemsData = getProblemsData(locale);
+
+const iconKeys = ['puzzle', 'clipboard', 'chart', 'link'];
+const problems = problemsData.map((p, i) => ({ ...p, icon: iconKeys[i] }));
 
 const icons: Record<string, string> = {
   puzzle: `<path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82 47.63 47.63 0 00-5.067-.592.563.563 0 00-.594.56v0z" />`,
@@ -46,13 +29,13 @@ const icons: Record<string, string> = {
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
         </svg>
-        Solutions
+        {t('problems.badge')}
       </span>
       <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4">
-        Ce que nous résolvons
+        {t('problems.heading')}
       </h2>
       <p class="text-white/60 text-lg">
-        Des problèmes terrain que nous connaissons bien. Des solutions éprouvées que nous adaptons à votre contexte.
+        {t('problems.description')}
       </p>
     </div>
 
@@ -98,9 +81,9 @@ const icons: Record<string, string> = {
     <!-- Bottom note -->
     <div class="text-center mt-10" data-aos="fade-up">
       <p class="text-white/40 text-sm">
-        Votre problème n'est pas dans la liste ?
+        {t('problems.bottomNote')}
         <a href="#contact" class="text-accent font-medium hover:text-accent/80 transition-colors ml-1">
-          Parlons-en &rarr;
+          {t('problems.bottomCta')} &rarr;
         </a>
       </p>
     </div>

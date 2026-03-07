@@ -1,30 +1,10 @@
 ---
-const steps = [
-  {
-    number: '01',
-    title: 'Immersion',
-    description: 'Nous venons chez vous. Nous observons vos équipes, vos processus, vos outils. Nous comprenons votre réalité avant de proposer quoi que ce soit.',
-    icon: 'eye'
-  },
-  {
-    number: '02',
-    title: 'Cadrage',
-    description: 'Nous définissons ensemble le périmètre, les priorités, les contraintes. Vous savez exactement ce que nous allons livrer et quand.',
-    icon: 'document'
-  },
-  {
-    number: '03',
-    title: 'Développement',
-    description: 'Itérations courtes. Vous voyez et testez à chaque étape. Nous ajustons en fonction de vos retours terrain.',
-    icon: 'code'
-  },
-  {
-    number: '04',
-    title: 'Déploiement',
-    description: 'Formation de vos équipes incluse. Nous restons à vos côtés après le déploiement.',
-    icon: 'rocket'
-  }
-];
+import { useTranslations, getStepsData } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
+const steps = getStepsData(locale);
 
 const icons: Record<string, string> = {
   eye: `<path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />`,
@@ -38,12 +18,12 @@ const icons: Record<string, string> = {
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
     <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
-      <span class="badge badge-primary mb-4">Notre approche</span>
+      <span class="badge badge-primary mb-4">{t('method.badge')}</span>
       <h2 class="text-4xl sm:text-5xl font-bold text-dark mb-4">
-        Comment nous travaillons
+        {t('method.heading')}
       </h2>
       <p class="text-text-light text-lg">
-        Pas de tunnel de 6 mois sans nouvelles. Un processus transparent où vous gardez le contrôle.
+        {t('method.description')}
       </p>
     </div>
 
@@ -87,10 +67,10 @@ const icons: Record<string, string> = {
     <!-- Bottom CTA -->
     <div class="text-center mt-12" data-aos="fade-up">
       <p class="text-text-light text-sm mb-4">
-        Envie de voir comment ça se passe concrètement ?
+        {t('method.bottomText')}
       </p>
       <a href="#contact" class="btn btn-outline">
-        Planifier un premier échange
+        {t('method.cta')}
       </a>
     </div>
   </div>

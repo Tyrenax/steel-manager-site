@@ -1,20 +1,16 @@
 ---
-const year = new Date().getFullYear();
-
-const navigation = [
-  { label: 'Services', href: '#services' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Méthode', href: '#method' },
-  { label: 'Processus', href: '#processus' },
-  { label: 'Équipe', href: '#equipe' },
-  { label: 'Contact', href: '#contact' },
-];
-
-const products = [
-  { label: 'Steel Manager', href: 'https://steel-manager.be/fr/', external: true },
-  { label: 'Wood Manager', href: 'https://wood-manager.be/fr/', external: true },
-];
+import { useTranslations, getFooterNav, getFooterProducts } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
 import { Image } from 'astro:assets';
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
+const navigation = getFooterNav(locale);
+const products = getFooterProducts(locale);
+const homeUrl = locale === 'fr' ? '/' : '/en/';
+const steelUrl = locale === 'fr' ? 'https://steel-manager.be/fr/' : 'https://steel-manager.be/en/';
+
+const year = new Date().getFullYear();
 ---
 
 <footer class="bg-dark py-12 lg:py-16">
@@ -23,11 +19,11 @@ import { Image } from 'astro:assets';
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 pb-10 border-b border-white/10">
       <!-- Brand -->
       <div class="col-span-2 md:col-span-1">
-        <a href="/" class="inline-block mb-4">
+        <a href={homeUrl} class="inline-block mb-4">
           <Image src="/images/DevTeix.png" alt="DevTeix" width={140} height={28} style="height: 58px; width: auto;" class="brightness-0 invert" />
         </a>
         <p class="text-white/50 text-sm leading-relaxed mb-4">
-          Développement sur mesure pour l'industrie et les métiers complexes.
+          {t('footer.brand')}
         </p>
         <a
           href="https://www.linkedin.com/company/steel-manager"
@@ -44,7 +40,7 @@ import { Image } from 'astro:assets';
 
       <!-- Navigation -->
       <div>
-        <h4 class="text-white font-medium text-sm mb-4">Navigation</h4>
+        <h4 class="text-white font-medium text-sm mb-4">{t('footer.nav')}</h4>
         <ul class="space-y-2">
           {navigation.map((item) => (
             <li>
@@ -61,7 +57,7 @@ import { Image } from 'astro:assets';
 
       <!-- Products -->
       <div>
-        <h4 class="text-white font-medium text-sm mb-4">Produits</h4>
+        <h4 class="text-white font-medium text-sm mb-4">{t('footer.products')}</h4>
         <ul class="space-y-2">
           {products.map((product) => (
             <li>
@@ -85,7 +81,7 @@ import { Image } from 'astro:assets';
 
       <!-- Contact -->
       <div>
-        <h4 class="text-white font-medium text-sm mb-4">Contact</h4>
+        <h4 class="text-white font-medium text-sm mb-4">{t('footer.contact')}</h4>
         <ul class="space-y-2">
           <li>
             <a
@@ -104,7 +100,7 @@ import { Image } from 'astro:assets';
             </a>
           </li>
           <li>
-            <span class="text-white/50 text-sm">Zoning industriel des hauts-Sarts, Rue d'Abhooz 27, 4040 Herstal</span>
+            <span class="text-white/50 text-sm">{t('contact.address.value')}</span>
           </li>
         </ul>
       </div>
@@ -113,15 +109,15 @@ import { Image } from 'astro:assets';
     <!-- Steel Manager heritage -->
     <div class="py-6 border-b border-white/10">
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-center">
-        <span class="text-white/40 text-sm">Une division née de l'expertise</span>
+        <span class="text-white/40 text-sm">{t('footer.heritage.prefix')}</span>
         <a
-          href="https://steel-manager.be/fr/"
+          href={steelUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors"
         >
           <span class="font-medium text-sm">Steel Manager</span>
-          <span class="text-white/40 text-xs">&#8226; Leader GPAO depuis 1994</span>
+          <span class="text-white/40 text-xs">&#8226; {t('footer.heritage.suffix')}</span>
         </a>
       </div>
     </div>
@@ -129,14 +125,14 @@ import { Image } from 'astro:assets';
     <!-- Bottom footer -->
     <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
       <p class="text-white/30 text-xs">
-        &copy; {year} DevTeix. Tous droits réservés.
+        &copy; {year} DevTeix. {t('footer.copyright')}
       </p>
       <div class="flex items-center gap-6">
         <a href="/steel-manager-mentions-legales.pdf" target="_blank" rel="noopener noreferrer" class="text-white/30 text-xs hover:text-white/60 transition-colors">
-          Mentions légales
+          {t('footer.legal')}
         </a>
         <a href="/steel-manager-mentions-legales.pdf" target="_blank" rel="noopener noreferrer" class="text-white/30 text-xs hover:text-white/60 transition-colors">
-          Confidentialité
+          {t('footer.privacy')}
         </a>
       </div>
     </div>

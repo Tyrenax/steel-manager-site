@@ -1,20 +1,21 @@
 ---
-const navItems = [
-  { label: 'Services', href: '#services' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Méthode', href: '#method' },
-  { label: 'Processus', href: '#processus' },
-  { label: 'Équipe', href: '#equipe' },
-  { label: 'Contact', href: '#contact' },
-];
+import { useTranslations, getNavItems, getFooterProducts } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
 import { Image } from 'astro:assets';
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
+const navItems = getNavItems(locale);
+const homeUrl = locale === 'fr' ? '/' : '/en/';
+const steelUrl = locale === 'fr' ? 'https://steel-manager.be/fr/' : 'https://steel-manager.be/en/';
+const woodUrl = locale === 'fr' ? 'https://wood-manager.be/fr/' : 'https://wood-manager.be/en/';
 ---
 
 <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border/50 transition-all duration-150">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16 lg:h-18">
       <!-- Logo -->
-      <a href="/" class="flex items-center relative z-10 shrink-0">
+      <a href={homeUrl} class="flex items-center relative z-10 shrink-0">
         <Image
           src="/images/DevTeix.png"
           alt="DevTeix"
@@ -38,10 +39,10 @@ import { Image } from 'astro:assets';
         ))}
       </nav>
 
-      <!-- Product logos + CTA Desktop -->
+      <!-- Product logos + Lang switch + CTA Desktop -->
       <div class="hidden lg:flex items-center gap-3">
         <a
-          href="https://steel-manager.be/fr/"
+          href={steelUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center hover:scale-105 transition-transform duration-200"
@@ -51,7 +52,7 @@ import { Image } from 'astro:assets';
         </a>
         <div style="width: 1px; height: 32px; background: linear-gradient(180deg, transparent 0%, #c7cde0 50%, transparent 100%); margin: 0 4px;"></div>
         <a
-          href="https://wood-manager.be/fr/"
+          href={woodUrl}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center hover:scale-105 transition-transform duration-200"
@@ -59,11 +60,30 @@ import { Image } from 'astro:assets';
         >
           <Image src="/images/logo-wood-manager.png" alt="Wood Manager" width={120} height={45} loading="eager" style="height: 56px; width: auto;" />
         </a>
+
+        <!-- Language switcher -->
+        <div class="flex items-center border border-border rounded-md overflow-hidden text-sm ml-1">
+          <a
+            href="/"
+            class:list={[
+              'px-2.5 py-1.5 font-medium transition-colors',
+              locale === 'fr' ? 'bg-primary text-white' : 'text-text-light hover:bg-light'
+            ]}
+          >FR</a>
+          <a
+            href="/en/"
+            class:list={[
+              'px-2.5 py-1.5 font-medium transition-colors',
+              locale === 'en' ? 'bg-primary text-white' : 'text-text-light hover:bg-light'
+            ]}
+          >EN</a>
+        </div>
+
         <a
           href="#contact"
           class="btn btn-primary text-sm ml-2"
         >
-          Nous contacter
+          {t('header.cta')}
         </a>
       </div>
 
@@ -99,11 +119,30 @@ import { Image } from 'astro:assets';
         </a>
       ))}
       <div class="pt-4 space-y-3 border-t border-border mt-4">
+        <!-- Mobile language switcher -->
+        <div class="flex items-center justify-center gap-2 py-2">
+          <div class="flex items-center border border-border rounded-md overflow-hidden text-sm">
+            <a
+              href="/"
+              class:list={[
+                'px-3 py-2 font-medium transition-colors',
+                locale === 'fr' ? 'bg-primary text-white' : 'text-text-light hover:bg-light'
+              ]}
+            >FR</a>
+            <a
+              href="/en/"
+              class:list={[
+                'px-3 py-2 font-medium transition-colors',
+                locale === 'en' ? 'bg-primary text-white' : 'text-text-light hover:bg-light'
+              ]}
+            >EN</a>
+          </div>
+        </div>
         <div class="flex items-center justify-center gap-6 py-2">
-          <a href="https://steel-manager.be/fr/" target="_blank" rel="noopener noreferrer" title="Steel Manager">
+          <a href={steelUrl} target="_blank" rel="noopener noreferrer" title="Steel Manager">
             <Image src="/images/logo-steel-manager.png" alt="Steel Manager" width={70} height={28} style="height: 28px; width: auto;" />
           </a>
-          <a href="https://wood-manager.be/fr/" target="_blank" rel="noopener noreferrer" title="Wood Manager">
+          <a href={woodUrl} target="_blank" rel="noopener noreferrer" title="Wood Manager">
             <Image src="/images/logo-wood-manager.png" alt="Wood Manager" width={70} height={28} style="height: 28px; width: auto;" />
           </a>
         </div>
@@ -111,7 +150,7 @@ import { Image } from 'astro:assets';
           href="#contact"
           class="btn btn-accent block w-full text-center"
         >
-          Nous contacter
+          {t('header.cta')}
         </a>
       </div>
     </div>

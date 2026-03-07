@@ -1,9 +1,11 @@
 ---
-const benefits = [
-  'Analyse personnalisée de vos besoins',
-  'Conseils d\'experts du terrain',
-  'Sans engagement'
-];
+import { useTranslations, getContactBenefits } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
+const benefits = getContactBenefits(locale);
+const emailSubject = encodeURIComponent(t('contact.emailSubject'));
 ---
 
 <section id="contact" class="section-soft section-spacing section-anchor-line">
@@ -11,13 +13,12 @@ const benefits = [
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
       <!-- Left: Content -->
       <div data-aos="fade-right" data-aos-duration="400">
-        <span class="badge badge-primary mb-6">Contact</span>
+        <span class="badge badge-primary mb-6">{t('contact.badge')}</span>
         <h2 class="text-4xl sm:text-5xl font-bold text-dark mb-6 leading-tight">
-          Prêt à en discuter ?
+          {t('contact.heading')}
         </h2>
         <p class="text-text-light text-lg leading-relaxed mb-8">
-          Pas de formulaire à rallonge. Envoyez-nous un mail ou appelez-nous directement.
-          Nous répondons vite.
+          {t('contact.description')}
         </p>
 
         <!-- Contact info -->
@@ -32,7 +33,7 @@ const benefits = [
               </svg>
             </div>
             <div>
-              <div class="text-sm text-text-light">Email</div>
+              <div class="text-sm text-text-light">{t('contact.email.label')}</div>
               <div class="text-dark font-medium">contact@devteix.com</div>
             </div>
           </a>
@@ -47,7 +48,7 @@ const benefits = [
               </svg>
             </div>
             <div>
-              <div class="text-sm text-text-light">Téléphone</div>
+              <div class="text-sm text-text-light">{t('contact.phone.label')}</div>
               <div class="text-dark font-medium">+32 487 41 91 20</div>
             </div>
           </a>
@@ -65,8 +66,8 @@ const benefits = [
               </svg>
             </div>
             <div class="min-w-0">
-              <div class="text-sm text-text-light">Adresse</div>
-              <div class="text-dark font-medium text-sm sm:text-base leading-snug">Zoning industriel des hauts-Sarts, Rue d'Abhooz 27, 4040 Herstal</div>
+              <div class="text-sm text-text-light">{t('contact.address.label')}</div>
+              <div class="text-dark font-medium text-sm sm:text-base leading-snug">{t('contact.address.value')}</div>
             </div>
           </a>
         </div>
@@ -84,7 +85,7 @@ const benefits = [
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
-          <span class="text-text-light text-sm">Suivez-nous sur LinkedIn</span>
+          <span class="text-text-light text-sm">{t('contact.linkedin')}</span>
         </div>
       </div>
 
@@ -98,11 +99,10 @@ const benefits = [
           </div>
 
           <h3 class="text-2xl font-bold text-white mb-3">
-            Premier échange gratuit
+            {t('contact.cta.heading')}
           </h3>
           <p class="text-white/60 leading-relaxed mb-6">
-            30 minutes pour comprendre vos enjeux et voir si nous pouvons vous aider.
-            Pas de slides, pas de pitch commercial.
+            {t('contact.cta.description')}
           </p>
 
           <ul class="space-y-3 mb-8">
@@ -119,10 +119,10 @@ const benefits = [
           </ul>
 
           <a
-            href="mailto:contact@devteix.com?subject=Demande%20de%20premier%20échange"
+            href={`mailto:contact@devteix.com?subject=${emailSubject}`}
             class="btn btn-accent w-full justify-center"
           >
-            Planifier un échange
+            {t('contact.cta.button')}
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>

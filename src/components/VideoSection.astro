@@ -1,4 +1,9 @@
 ---
+import { useTranslations } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
 ---
 
 <section class="section-soft section-spacing overflow-hidden">
@@ -10,13 +15,13 @@
         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
           <path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.344-5.891a1.5 1.5 0 000-2.538L6.3 2.84z" />
         </svg>
-        <span>Présentation</span>
+        <span>{t('video.badge')}</span>
       </div>
       <h2 class="text-3xl sm:text-4xl font-bold text-dark mb-3">
-        Découvrez <span class="text-gradient">DevTeix</span> en action
+        {t('video.heading.prefix')}<span class="text-gradient">{t('video.heading.highlight')}</span>{t('video.heading.suffix')}
       </h2>
       <p class="text-text-light text-lg max-w-2xl mx-auto">
-        Une vue d'ensemble de notre approche et de nos solutions logicielles sur mesure.
+        {t('video.description')}
       </p>
     </div>
 
@@ -37,7 +42,7 @@
         style="aspect-ratio: 16/9; background: var(--color-dark);"
       >
         <source src="/video/devteixpres.web.mp4#t=1" type="video/mp4" />
-        Votre navigateur ne supporte pas la lecture vidéo.
+        {t('video.fallback')}
       </video>
     </div>
 

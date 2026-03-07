@@ -1,17 +1,22 @@
 ---
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
+import { useTranslations } from '../i18n/ui';
+import type { Locale } from '../i18n/languages';
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
 }
 
-const { title, description = "DevTeix - Développement logiciel sur mesure pour l'industrie et les métiers complexes" } = Astro.props;
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const t = useTranslations(locale);
+
+const { title = t('layout.title'), description = t('layout.description') } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -19,6 +24,11 @@ const { title, description = "DevTeix - Développement logiciel sur mesure pour 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- Hreflang SEO -->
+    <link rel="alternate" hreflang="fr" href="https://devteix.com/" />
+    <link rel="alternate" hreflang="en" href="https://devteix.com/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://devteix.com/" />
 
     <!-- Google Fonts - IBM Plex Sans (corps) + Bricolage Grotesque (titres) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
