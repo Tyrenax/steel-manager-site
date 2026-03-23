@@ -4,6 +4,7 @@ import type { Locale } from '../i18n/languages';
 
 const locale = (Astro.currentLocale ?? 'fr') as Locale;
 const t = useTranslations(locale);
+const videoSrc = locale === 'fr' ? '/video/devteixpres.web.mp4#t=1' : '/video/DevTeixpre_ENG.mp4#t=1';
 ---
 
 <section class="section-soft section-spacing overflow-hidden">
@@ -41,7 +42,7 @@ const t = useTranslations(locale);
         poster=""
         style="aspect-ratio: 16/9; background: var(--color-dark);"
       >
-        <source src="/video/devteixpres.web.mp4#t=1" type="video/mp4" />
+        <source src={videoSrc} type="video/mp4" />
         {t('video.fallback')}
       </video>
     </div>

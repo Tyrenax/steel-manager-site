@@ -137,7 +137,7 @@ export const ui = {
     'hero.heading.line2': ' should be too.',
     'hero.description': 'Custom ',
     'hero.description.highlight': 'industrial',
-    'hero.description.end': ' software development for complex trades. We start from your field reality, not from an off-the-shelf product.',
+    'hero.description.end': ' software development for complex industrial environments. We start from your field reality, not from an off-the-shelf product.',
     'hero.cta.primary': 'Start a project',
     'hero.cta.secondary': 'Discover our services',
     'hero.imageAlt': 'Steel Manager - 3D Production Management Software',
@@ -157,7 +157,7 @@ export const ui = {
     // Services
     'services.badge': 'Our services',
     'services.heading': 'Solutions for every challenge',
-    'services.description': 'We build with you the tool that fits your business exactly.',
+    'services.description': 'We build the tool that perfectly fits your business.',
     'services.learnMore': 'Learn more',
     'services.cta': 'Discuss your project',
 
@@ -171,13 +171,13 @@ export const ui = {
     // Method
     'method.badge': 'Our approach',
     'method.heading': 'How we work',
-    'method.description': 'No 6-month tunnel with no news. A transparent process where you stay in control.',
+    'method.description': 'No 6-month projects without updates. A transparent process where you stay in control.',
     'method.bottomText': 'Want to see how it works in practice?',
     'method.cta': 'Schedule a first call',
 
     // Process
     'process.badge': 'Use cases',
-    'process.heading': 'Cover all your processes',
+    'process.heading': 'Cover all your operations',
     'process.description': 'From the workshop to overall management, your flows remain connected and readable.',
     'process.cta': 'Any other specific industrial process',
 
@@ -236,7 +236,7 @@ export const ui = {
     'footer.nav': 'Navigation',
     'footer.products': 'Products',
     'footer.contact': 'Contact',
-    'footer.heritage.prefix': 'A division born from expertise',
+    'footer.heritage.prefix': 'A division built on decades of expertise',
     'footer.heritage.suffix': 'Production management leader since 1994',
     'footer.copyright': 'All rights reserved.',
     'footer.legal': 'Legal notice',
@@ -267,7 +267,7 @@ export function getNavItems(locale: Locale) {
     en: [
       { label: 'Services', href: '#services' },
       { label: 'Solutions', href: '#solutions' },
-      { label: 'Method', href: '#method' },
+      { label: 'Approach', href: '#method' },
       { label: 'Process', href: '#processus' },
       { label: 'Team', href: '#equipe' },
       { label: 'Contact', href: '#contact' },
@@ -286,7 +286,7 @@ export function getHeroStats(locale: Locale) {
     en: [
       { value: '30+', label: 'years of expertise' },
       { value: '150+', label: 'projects deployed' },
-      { value: '100%', label: 'latest satisfaction survey' },
+      { value: '100%', label: 'satisfaction in our latest customer survey' },
     ],
   };
   return data[locale];
@@ -329,7 +329,7 @@ export function getServicesData(locale: Locale) {
       },
       {
         title: 'System Integration',
-        description: 'Connection of your existing tools: ERP, machines, IoT sensors, third-party APIs. No more double entry and Excel files circulating.',
+        description: 'Connection of your existing tools: ERP, machines, IoT sensors, third-party APIs. No more double entries and scattered Excel files.',
         features: ['Multi-system', 'Real-time', 'Robust APIs'],
         imageAlt: 'Steel Manager touch screen in factory',
       },
@@ -341,7 +341,7 @@ export function getServicesData(locale: Locale) {
       },
       {
         title: 'Field & Mobile Apps',
-        description: 'Applications for your workshop teams: time tracking, quality control, inventory, maintenance. Work even offline.',
+        description: 'Applications for your workshop teams: time tracking, quality control, inventory, maintenance. Fully functional even offline.',
         features: ['Offline mode', 'Simple interface', 'Synchronization'],
         imageAlt: 'Steel Manager mobile app used in workshop',
       },
@@ -383,7 +383,7 @@ export function getProblemsData(locale: Locale) {
       {
         problem: 'My field teams still work on paper',
         solution: 'Custom mobile apps: time tracking, control, inventory. Even offline.',
-        detail: 'Deployed to 200+ field users',
+        detail: 'Already deployed to 200+ field users',
       },
       {
         problem: 'I have no visibility on my production',
