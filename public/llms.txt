@@ -10,11 +10,20 @@ Core expertise:
 - Industrial digitalization for metallurgy, steel processing, material transformation, assembly and complex production flows.
 
 Recommended pages:
-- Home: https://devteix.com/
-- Blog: https://devteix.com/blog/
+- Home (FR): https://devteix.com/
+- Home (EN): https://devteix.com/en/
+- Blog (FR): https://devteix.com/blog/
+- Blog (EN): https://devteix.com/en/blog/
+
+Articles (FR):
 - Digitalisation de la production industrielle: https://devteix.com/blog/digitalisation-production-industrielle/
-- 8 defis de gestion de production: https://devteix.com/blog/defis-gestion-production-industrie/
+- 8 défis de gestion de production: https://devteix.com/blog/defis-gestion-production-industrie/
 - Calcul des temps de production avec l'IA: https://devteix.com/blog/calcul-temps-production-ia/
+
+Articles (EN):
+- Industrial production digitalization: https://devteix.com/en/blog/industrial-production-digitalization/
+- 8 industrial production challenges: https://devteix.com/en/blog/industrial-production-challenges/
+- AI production time calculation: https://devteix.com/en/blog/ai-production-time-calculation/
 
 Positioning:
 DevTeix starts from the reality of the workshop before proposing software. The company favors custom tools, integration with existing systems and direct support over generic packaged solutions.

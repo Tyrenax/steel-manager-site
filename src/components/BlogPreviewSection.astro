@@ -4,11 +4,13 @@ import type { Locale } from '../i18n/languages';
 import { Image } from 'astro:assets';
 import { getBlogCoverImage } from '../utils/blogImages';
 
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const blogBase = locale === 'fr' ? '/blog/' : '/en/blog/';
 const posts = (await getCollection('blog'))
+  .filter((p) => p.data.language === locale)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const locale = (Astro.currentLocale ?? 'fr') as Locale;
 const copy = {
   fr: {
     badge: 'Guides terrain',
@@ -22,7 +24,7 @@ const copy = {
     badge: 'Field guides',
     heading: 'A knowledge base for industrial decisions',
     description:
-      'Practical articles about industrial digitalization, traceability, industrial AI and custom software. The current knowledge base is available in French while English articles are being prepared.',
+      'Practical articles about industrial digitalization, traceability, industrial AI and custom software. No abstract theory — topics teams actually deal with on the floor.',
     cta: 'View all articles',
     read: 'Read the guide',
   },
@@ -52,7 +54,7 @@ const copy = {
             <span class="blog-topic-pill">IA industrielle</span>
             <span class="blog-topic-pill">Atelier</span>
           </div>
-          <a href="/blog/" class="btn btn-accent">
+          <a href={blogBase} class="btn btn-accent">
             {copy.cta}
             <span aria-hidden="true">→</span>
           </a>
@@ -61,7 +63,7 @@ const copy = {
         <div class="blog-article-grid">
           {posts.map((post, index) => (
             <a
-              href={`/blog/${post.slug}/`}
+              href={`${blogBase}${post.slug}/`}
               class:list={[
                 'blog-paper-card group',
                 index === 0 && 'blog-paper-card-featured',
