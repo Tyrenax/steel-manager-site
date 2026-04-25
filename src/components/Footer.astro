@@ -11,6 +11,10 @@ const homeUrl = locale === 'fr' ? '/' : '/en/';
 const steelUrl = locale === 'fr' ? 'https://steel-manager.be/fr/' : 'https://steel-manager.be/en/';
 
 const year = new Date().getFullYear();
+
+function resolveFooterHref(href: string) {
+  return href.startsWith('#') ? `${homeUrl}${href}` : href;
+}
 ---
 
 <footer class="bg-dark py-12 lg:py-16">
@@ -45,7 +49,7 @@ const year = new Date().getFullYear();
           {navigation.map((item) => (
             <li>
               <a
-                href={item.href}
+                href={resolveFooterHref(item.href)}
                 class="text-white/50 text-sm hover:text-white transition-colors"
               >
                 {item.label}

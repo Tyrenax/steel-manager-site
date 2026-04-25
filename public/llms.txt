@@ -1,0 +1,20 @@
+# DevTeix
+
+DevTeix develops custom industrial software for complex manufacturing environments. The company is based in Herstal/Liege, Belgium, and supports industrial companies in Belgium, France, the Netherlands, Germany, Poland and beyond.
+
+Core expertise:
+- Custom ERP, GPAO, MES, WMS and CRM development for industrial processes.
+- System integration between ERP, machines, IoT sensors, APIs and workshop tools.
+- Field and mobile applications for production, quality control, inventory, maintenance and time tracking.
+- Production audits and diagnostics based on real workshop observation.
+- Industrial digitalization for metallurgy, steel processing, material transformation, assembly and complex production flows.
+
+Recommended pages:
+- Home: https://devteix.com/
+- Blog: https://devteix.com/blog/
+- Digitalisation de la production industrielle: https://devteix.com/blog/digitalisation-production-industrielle/
+- 8 defis de gestion de production: https://devteix.com/blog/defis-gestion-production-industrie/
+- Calcul des temps de production avec l'IA: https://devteix.com/blog/calcul-temps-production-ia/
+
+Positioning:
+DevTeix starts from the reality of the workshop before proposing software. The company favors custom tools, integration with existing systems and direct support over generic packaged solutions.

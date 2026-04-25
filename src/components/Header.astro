@@ -7,8 +7,17 @@ const locale = (Astro.currentLocale ?? 'fr') as Locale;
 const t = useTranslations(locale);
 const navItems = getNavItems(locale);
 const homeUrl = locale === 'fr' ? '/' : '/en/';
+const currentPath = Astro.url.pathname;
+const isHomePage = currentPath === homeUrl;
 const steelUrl = locale === 'fr' ? 'https://steel-manager.be/fr/' : 'https://steel-manager.be/en/';
 const woodUrl = locale === 'fr' ? 'https://wood-manager.be/fr/' : 'https://wood-manager.be/en/';
+
+function resolveNavHref(href: string) {
+  if (href.startsWith('#')) {
+    return isHomePage ? href : `${homeUrl}${href}`;
+  }
+  return href;
+}
 ---
 
 <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-border/50 transition-all duration-150">
@@ -27,11 +36,11 @@ const woodUrl = locale === 'fr' ? 'https://wood-manager.be/fr/' : 'https://wood-
       </a>
 
       <!-- Navigation Desktop -->
-      <nav class="hidden lg:flex items-center gap-1">
+      <nav class="hidden lg:flex items-center gap-0.5">
         {navItems.map((item) => (
           <a
-            href={item.href}
-            class="nav-link px-4 py-2 text-dark hover:text-primary text-sm font-medium transition-colors rounded-md hover:bg-primary/5"
+            href={resolveNavHref(item.href)}
+            class="nav-link px-3 py-2 text-dark hover:text-primary text-sm font-medium transition-colors rounded-md hover:bg-primary/5"
             data-nav-link
           >
             {item.label}
@@ -40,26 +49,27 @@ const woodUrl = locale === 'fr' ? 'https://wood-manager.be/fr/' : 'https://wood-
       </nav>
 
       <!-- Product logos + Lang switch + CTA Desktop -->
-      <div class="hidden lg:flex items-center gap-3">
-        <a
-          href={steelUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center hover:scale-105 transition-transform duration-200"
-          title="Steel Manager"
-        >
-          <Image src="/images/logo-steel-manager.png" alt="Steel Manager" width={200} height={80} loading="eager" style="height: 101px; width: auto;" />
-        </a>
-        <div style="width: 1px; height: 32px; background: linear-gradient(180deg, transparent 0%, #c7cde0 50%, transparent 100%); margin: 0 4px;"></div>
-        <a
-          href={woodUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center hover:scale-105 transition-transform duration-200"
-          title="Wood Manager"
-        >
-          <Image src="/images/logo-wood-manager.png" alt="Wood Manager" width={120} height={45} loading="eager" style="height: 56px; width: auto;" />
-        </a>
+      <div class="hidden lg:flex items-center gap-2">
+        <div class="product-links">
+          <a
+            href={steelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="product-link"
+            title="Steel Manager"
+          >
+            <Image src="/images/logo-steel-manager.png" alt="Steel Manager" width={200} height={80} loading="eager" style="height: 101px; width: auto;" />
+          </a>
+          <a
+            href={woodUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="product-link"
+            title="Wood Manager"
+          >
+            <Image src="/images/logo-wood-manager.png" alt="Wood Manager" width={120} height={45} loading="eager" style="height: 56px; width: auto;" />
+          </a>
+        </div>
 
         <!-- Language switcher -->
         <div class="flex items-center border border-border rounded-md overflow-hidden text-sm ml-1">
@@ -81,7 +91,7 @@ const woodUrl = locale === 'fr' ? 'https://wood-manager.be/fr/' : 'https://wood-
 
         <a
           href="#contact"
-          class="btn btn-primary text-sm ml-2"
+          class="btn btn-primary text-sm ml-1 whitespace-nowrap px-4"
         >
           {t('header.cta')}
         </a>
@@ -106,9 +116,9 @@ const woodUrl = locale === 'fr' ? 'https://wood-manager.be/fr/' : 'https://wood-
   <!-- Mobile menu -->
   <div id="mobile-menu" class="lg:hidden hidden absolute top-full left-0 right-0 bg-white border-b border-border shadow-lg">
     <div class="px-4 py-4 space-y-1">
-      {navItems.map((item) => (
+        {navItems.map((item) => (
         <a
-          href={item.href}
+          href={resolveNavHref(item.href)}
           class="nav-link-mobile flex items-center justify-between px-4 py-3 text-dark hover:text-primary hover:bg-light rounded-md text-base font-medium transition-all"
           data-nav-link
         >
@@ -173,6 +183,24 @@ const woodUrl = locale === 'fr' ? 'https://wood-manager.be/fr/' : 'https://wood-
     height: 2px;
     border-radius: 99px;
     background: linear-gradient(90deg, rgba(67, 97, 238, 0.92), rgba(6, 214, 160, 0.9));
+  }
+
+  .product-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .product-link {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .product-link:hover {
+    opacity: 1;
+    transform: translateY(-1px);
   }
 
   .nav-link-mobile.is-active {
@@ -250,6 +278,18 @@ const woodUrl = locale === 'fr' ? 'https://wood-manager.be/fr/' : 'https://wood-
 
     function updateActive() {
       const headerOffset = (header as HTMLElement | null)?.offsetHeight ?? 80;
+      if (window.scrollY < headerOffset + 40) {
+        navLinks.forEach((link) => {
+          const href = link.getAttribute('href') || '';
+          if (href.startsWith('#')) {
+            link.classList.remove('is-active');
+            link.removeAttribute('aria-current');
+          }
+        });
+        ticking = false;
+        return;
+      }
+
       const marker = window.scrollY + headerOffset + 90;
 
       let currentId = sections[0].id;

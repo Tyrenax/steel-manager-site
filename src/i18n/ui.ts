@@ -260,16 +260,16 @@ export function getNavItems(locale: Locale) {
       { label: 'Services', href: '#services' },
       { label: 'Solutions', href: '#solutions' },
       { label: 'Méthode', href: '#method' },
-      { label: 'Processus', href: '#processus' },
       { label: 'Équipe', href: '#equipe' },
+      { label: 'Blog', href: '#blog' },
       { label: 'Contact', href: '#contact' },
     ],
     en: [
       { label: 'Services', href: '#services' },
       { label: 'Solutions', href: '#solutions' },
       { label: 'Approach', href: '#method' },
-      { label: 'Process', href: '#processus' },
       { label: 'Team', href: '#equipe' },
+      { label: 'Blog', href: '#blog' },
       { label: 'Contact', href: '#contact' },
     ],
   };

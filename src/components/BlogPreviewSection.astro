@@ -1,0 +1,241 @@
+---
+import { getCollection } from 'astro:content';
+import type { Locale } from '../i18n/languages';
+import { Image } from 'astro:assets';
+import { getBlogCoverImage } from '../utils/blogImages';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+const copy = {
+  fr: {
+    badge: 'Guides terrain',
+    heading: 'Une base de connaissances pour vos décisions industrielles',
+    description:
+      "Des articles concrets sur la digitalisation, la traçabilité, l'IA industrielle et les logiciels sur mesure. Pas de théorie abstraite : des sujets que les équipes vivent vraiment en atelier.",
+    cta: 'Voir tous les articles',
+    read: 'Lire le guide',
+  },
+  en: {
+    badge: 'Field guides',
+    heading: 'A knowledge base for industrial decisions',
+    description:
+      'Practical articles about industrial digitalization, traceability, industrial AI and custom software. The current knowledge base is available in French while English articles are being prepared.',
+    cta: 'View all articles',
+    read: 'Read the guide',
+  },
+}[locale];
+---
+
+<section id="blog" class="blog-preview-section section-anchor-line overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="blog-editorial-shell">
+      <div class="blog-kicker" data-aos="fade-up">
+        <span class="blog-kicker-line"></span>
+        <span>{copy.badge}</span>
+      </div>
+
+      <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 lg:gap-10 items-stretch">
+        <div class="blog-editorial-panel" data-aos="fade-up">
+          <p class="text-sm uppercase tracking-[0.28em] text-accent-dark font-semibold mb-5">DevTeix Journal</p>
+          <h2 class="text-4xl sm:text-5xl font-bold text-white mb-5">
+            {copy.heading}
+          </h2>
+          <p class="text-lg text-white/70 leading-relaxed mb-8">
+            {copy.description}
+          </p>
+          <div class="flex flex-wrap gap-3 mb-7">
+            <span class="blog-topic-pill">GPAO</span>
+            <span class="blog-topic-pill">MES</span>
+            <span class="blog-topic-pill">IA industrielle</span>
+            <span class="blog-topic-pill">Atelier</span>
+          </div>
+          <a href="/blog/" class="btn btn-accent">
+            {copy.cta}
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="blog-article-grid">
+          {posts.map((post, index) => (
+            <a
+              href={`/blog/${post.slug}/`}
+              class:list={[
+                'blog-paper-card group',
+                index === 0 && 'blog-paper-card-featured',
+              ]}
+              data-aos="fade-up"
+              data-aos-delay={index * 80}
+            >
+              <div class="blog-card-image">
+                <Image
+                  src={getBlogCoverImage(post.slug)}
+                  alt={post.data.cover.alt}
+                  width={700}
+                  height={420}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                />
+              </div>
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <span class="blog-card-category">{post.data.category}</span>
+                <span class="text-sm text-text-light whitespace-nowrap">{post.data.readTime}</span>
+              </div>
+              <h3 class="text-2xl font-semibold text-dark mb-3 group-hover:text-primary transition-colors">
+                {post.data.title}
+              </h3>
+              <p class="text-text-light leading-relaxed mb-5">
+                {post.data.description}
+              </p>
+              <span class="inline-flex items-center gap-2 text-primary font-medium">
+                {copy.read}
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-preview-section {
+    padding: 5rem 0;
+    background:
+      radial-gradient(900px 420px at 15% 0%, rgba(6, 214, 160, 0.16), transparent 62%),
+      radial-gradient(900px 520px at 95% 80%, rgba(67, 97, 238, 0.16), transparent 62%),
+      linear-gradient(180deg, #101421 0%, #f6f8fd 54%, #ffffff 100%);
+  }
+
+  .blog-editorial-shell {
+    position: relative;
+  }
+
+  .blog-kicker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-kicker-line {
+    width: 4rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+  }
+
+  .blog-editorial-panel {
+    position: relative;
+    overflow: hidden;
+    min-height: 100%;
+    border-radius: 2rem;
+    padding: clamp(1.75rem, 3vw, 2.6rem);
+    background:
+      linear-gradient(135deg, rgba(67, 97, 238, 0.22), rgba(6, 214, 160, 0.08)),
+      linear-gradient(145deg, #171b2b 0%, #23283d 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 80px rgba(11, 17, 34, 0.22);
+  }
+
+  .blog-editorial-panel::after {
+    content: "";
+    position: absolute;
+    inset: auto -20% -40% 20%;
+    height: 18rem;
+    background: radial-gradient(circle, rgba(6, 214, 160, 0.2), transparent 62%);
+    pointer-events: none;
+  }
+
+  .blog-topic-pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.45rem 0.8rem;
+    color: rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.82rem;
+  }
+
+  .blog-article-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .blog-paper-card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 1.35rem;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    background:
+      linear-gradient(90deg, rgba(67, 97, 238, 0.055) 1px, transparent 1px),
+      linear-gradient(#ffffff, #ffffff);
+    background-size: 28px 28px, auto;
+    padding: 1.55rem;
+    box-shadow: 0 18px 48px rgba(26, 29, 41, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .blog-card-image {
+    height: 11rem;
+    margin: -1.55rem -1.55rem 1.25rem;
+    overflow: hidden;
+    background: var(--color-dark);
+  }
+
+  .blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .blog-paper-card:hover .blog-card-image img {
+    transform: scale(1.05);
+  }
+
+  .blog-paper-card-featured {
+    min-height: 18rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background:
+      radial-gradient(420px 220px at 100% 0%, rgba(6, 214, 160, 0.14), transparent 64%),
+      linear-gradient(90deg, rgba(67, 97, 238, 0.055) 1px, transparent 1px),
+      linear-gradient(#ffffff, #ffffff);
+    background-size: auto, 28px 28px, auto;
+  }
+
+  .blog-paper-card:hover {
+    transform: translateY(-4px) rotate(-0.35deg);
+    border-color: rgba(67, 97, 238, 0.28);
+    box-shadow: 0 28px 70px rgba(67, 97, 238, 0.14);
+  }
+
+  .blog-card-category {
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 768px) {
+    .blog-article-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .blog-paper-card-featured {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

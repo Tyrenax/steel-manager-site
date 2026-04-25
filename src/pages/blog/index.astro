@@ -1,0 +1,158 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+import { getBlogCoverImage } from '../../utils/blogImages';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const featured = posts.find((post) => post.data.featured) ?? posts[0];
+const otherPosts = posts.filter((post) => post.id !== featured.id);
+---
+
+<Layout
+  title="Blog DevTeix — Digitalisation industrielle, GPAO, MES et logiciels sur mesure"
+  description="Guides terrain pour digitaliser la production industrielle, connecter vos outils, améliorer la traçabilité et construire des logiciels métier réellement adaptés à l'atelier."
+>
+  <Header />
+  <main class="pt-28 lg:pt-32">
+    <section class="blog-index-hero overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
+          <div class="max-w-3xl">
+            <div class="blog-index-label mb-3">
+              <span></span>
+              DevTeix Journal
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3">
+              Guides terrain pour digitaliser votre production
+            </h1>
+            <p class="text-base lg:text-lg text-white/65 leading-relaxed">
+              Digitalisation industrielle, GPAO, MES, traçabilité, IA industrielle et logiciels sur mesure pour ateliers complexes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {featured && (
+      <section class="blog-index-body py-8 lg:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <a href={`/blog/${featured.slug}/`} class="group grid lg:grid-cols-[1.15fr_0.85fr] gap-0 rounded-[2rem] overflow-hidden border border-border bg-white shadow-xl shadow-primary/5 hover:shadow-2xl hover:shadow-primary/10 transition-shadow">
+            <div class="p-7 lg:p-9">
+              <div class="flex flex-wrap items-center gap-3 mb-4">
+                <span class="badge badge-accent">Article pilier</span>
+                <span class="text-sm text-text-light">{featured.data.readTime}</span>
+              </div>
+              <h2 class="text-2xl lg:text-4xl font-bold text-dark mb-4 group-hover:text-primary transition-colors">
+                {featured.data.title}
+              </h2>
+              <p class="text-base lg:text-lg text-text-light leading-relaxed mb-6">
+                {featured.data.description}
+              </p>
+              <span class="inline-flex items-center gap-2 font-medium text-primary">
+                Lire l'article
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </span>
+            </div>
+            <div class="relative min-h-[240px] lg:min-h-[280px] bg-dark overflow-hidden">
+              <Image
+                src={getBlogCoverImage(featured.slug)}
+                alt={featured.data.cover.alt}
+                width={900}
+                height={620}
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="eager"
+              />
+            </div>
+          </a>
+        </div>
+      </section>
+    )}
+
+    <section class="blog-index-body pb-16 lg:pb-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-6">
+          {otherPosts.map((post) => (
+            <a href={`/blog/${post.slug}/`} class="card card-hover overflow-hidden group">
+              <div class="relative h-56 overflow-hidden bg-dark">
+                <Image
+                  src={getBlogCoverImage(post.slug)}
+                  alt={post.data.cover.alt}
+                  width={700}
+                  height={420}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/55 to-transparent"></div>
+              </div>
+              <div class="p-7">
+              <div class="flex items-center justify-between gap-4 mb-5">
+                <span class="badge">{post.data.category}</span>
+                <span class="text-sm text-text-light">{post.data.readTime}</span>
+              </div>
+              <h2 class="text-2xl font-semibold text-dark mb-4 group-hover:text-primary transition-colors">
+                {post.data.title}
+              </h2>
+              <p class="text-text-light leading-relaxed mb-6">
+                {post.data.description}
+              </p>
+              <span class="inline-flex items-center gap-2 text-primary font-medium">
+                Lire le guide
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .blog-index-hero {
+    background:
+      radial-gradient(900px 520px at 15% 0%, rgba(6, 214, 160, 0.16), transparent 64%),
+      radial-gradient(900px 560px at 100% 40%, rgba(67, 97, 238, 0.2), transparent 62%),
+      linear-gradient(145deg, #111522 0%, #1d2234 58%, #101421 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .blog-index-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.72);
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .blog-index-label span {
+    width: 4rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+  }
+
+  .blog-index-note {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px);
+    padding: 1.5rem;
+  }
+
+  .blog-index-body {
+    background:
+      linear-gradient(90deg, rgba(67, 97, 238, 0.025) 1px, transparent 1px),
+      linear-gradient(rgba(67, 97, 238, 0.025) 1px, transparent 1px),
+      #ffffff;
+    background-size: 32px 32px;
+  }
+</style>

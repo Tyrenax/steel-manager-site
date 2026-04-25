@@ -1,0 +1,460 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import { getBlogCoverImage } from '../utils/blogImages';
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Author {
+  name: string;
+  role: string;
+  linkedin?: string;
+}
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface RelatedPost {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  readTime: string;
+}
+
+interface Props {
+  title: string;
+  seoTitle?: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  category: string;
+  tags: string[];
+  readTime: string;
+  slug: string;
+  cover: {
+    url: string;
+    alt: string;
+  };
+  authors?: Author[];
+  language?: 'fr' | 'en';
+  faq?: FaqItem[];
+  headings?: Heading[];
+  related?: RelatedPost[];
+}
+
+const {
+  title,
+  seoTitle,
+  description,
+  pubDate,
+  updatedDate,
+  category,
+  tags,
+  readTime,
+  slug,
+  cover,
+  authors = [{ name: 'Équipe DevTeix', role: 'DevTeix' }],
+  language = 'fr',
+  faq = [],
+  headings = [],
+  related = [],
+} = Astro.props;
+
+const isEn = language === 'en';
+const blogBase = isEn ? '/en/blog/' : '/blog/';
+const homeBase = isEn ? '/en/' : '/';
+const canonical = `https://devteix.com${blogBase}${slug}/`;
+const coverImage = getBlogCoverImage(slug);
+const coverUrl = `https://devteix.com${cover.url}`;
+
+const copy = isEn
+  ? {
+      backToAll: 'All articles',
+      inThisArticle: 'In this article',
+      onThisPage: 'Contents',
+      faqHeading: 'Frequently asked questions',
+      relatedHeading: 'Continue reading',
+      auditEyebrow: 'Field audit',
+      auditHeading: 'Want to know where your production gets stuck?',
+      auditDescription: '30 minutes to identify your real friction points: data, workshop, ERP, planning, traceability.',
+      auditCta: 'Schedule a call',
+      home: 'Home',
+      blog: 'Blog',
+      writtenBy: 'Written by',
+      and: 'and',
+      readArticle: 'Read the article',
+      updatedOn: 'Updated',
+    }
+  : {
+      backToAll: 'Tous les articles',
+      inThisArticle: 'Dans cet article',
+      onThisPage: 'Sommaire',
+      faqHeading: 'Questions fréquentes',
+      relatedHeading: 'À lire ensuite',
+      auditEyebrow: 'Audit terrain',
+      auditHeading: 'Vous voulez savoir où votre production bloque ?',
+      auditDescription: '30 minutes pour identifier vos vrais points de friction : données, atelier, ERP, planning, traçabilité.',
+      auditCta: 'Planifier un échange',
+      home: 'Accueil',
+      blog: 'Blog',
+      writtenBy: 'Écrit par',
+      and: 'et',
+      readArticle: "Lire l'article",
+      updatedOn: 'Mis à jour le',
+    };
+
+const dateLocale = isEn ? 'en-GB' : 'fr-BE';
+const formattedDate = pubDate.toLocaleDateString(dateLocale, {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+const formattedUpdatedDate = updatedDate
+  ? updatedDate.toLocaleDateString(dateLocale, { day: 'numeric', month: 'long', year: 'numeric' })
+  : null;
+
+const tocHeadings = headings.filter((h) => h.depth === 2);
+
+const authorsForSchema = authors.map((a) => ({
+  '@type': 'Person',
+  name: a.name,
+  jobTitle: a.role,
+  ...(a.linkedin ? { sameAs: [a.linkedin] } : {}),
+  worksFor: {
+    '@type': 'Organization',
+    name: 'DevTeix',
+    url: 'https://devteix.com/',
+  },
+}));
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: authorsForSchema,
+  publisher: {
+    '@type': 'Organization',
+    name: 'DevTeix',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://devteix.com/images/DevTeix.png',
+    },
+  },
+  image: [coverUrl],
+  inLanguage: language,
+  mainEntityOfPage: canonical,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: copy.home, item: `https://devteix.com${homeBase}` },
+    { '@type': 'ListItem', position: 2, name: copy.blog, item: `https://devteix.com${blogBase}` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+
+const faqSchema = faq.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    }
+  : null;
+
+const authorLine = authors
+  .map((a, i) => {
+    if (i === 0) return a.name;
+    if (i === authors.length - 1) return `${copy.and} ${a.name}`;
+    return `, ${a.name}`;
+  })
+  .join(authors.length > 2 ? '' : ' ');
+---
+
+<Layout title={seoTitle ?? title} description={description} canonical={canonical} ogType="article" ogImage={coverUrl}>
+  <Header />
+  <main>
+    <article class="pt-28 lg:pt-32">
+      <header class="relative overflow-hidden section-hero border-b border-border">
+        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+          <nav aria-label="Breadcrumb" class="mb-6">
+            <ol class="flex flex-wrap items-center gap-1.5 text-sm text-text-light">
+              <li><a href={homeBase} class="hover:text-primary transition-colors">{copy.home}</a></li>
+              <li aria-hidden="true">/</li>
+              <li><a href={blogBase} class="hover:text-primary transition-colors">{copy.blog}</a></li>
+              <li aria-hidden="true">/</li>
+              <li class="text-dark font-medium truncate max-w-[60vw]" aria-current="page">{title}</li>
+            </ol>
+          </nav>
+          <a href={blogBase} class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark transition-colors mb-8">
+            <span aria-hidden="true">←</span>
+            {copy.backToAll}
+          </a>
+          <div class="flex flex-wrap items-center gap-3 mb-6">
+            <span class="badge badge-primary">{category}</span>
+            <time datetime={pubDate.toISOString()} class="text-sm text-text-light">{formattedDate}</time>
+            <span class="text-sm text-text-light">•</span>
+            <span class="text-sm text-text-light">{readTime}</span>
+            {formattedUpdatedDate && updatedDate && (
+              <>
+                <span class="text-sm text-text-light">•</span>
+                <time datetime={updatedDate.toISOString()} class="text-sm text-text-light">
+                  {copy.updatedOn} {formattedUpdatedDate}
+                </time>
+              </>
+            )}
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-dark leading-tight mb-6">
+            {title}
+          </h1>
+          <p class="text-xl text-text-light leading-relaxed max-w-3xl">
+            {description}
+          </p>
+          {authors.length > 0 && (
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <p class="text-sm text-text-light">{copy.writtenBy}</p>
+              <div class="flex flex-wrap items-center gap-3">
+                {authors.map((a) => (
+                  <div class="flex items-center gap-3 rounded-full border border-border bg-white/70 backdrop-blur px-4 py-2">
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent text-white font-semibold flex items-center justify-center text-sm">
+                      {a.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+                    </div>
+                    <div class="leading-tight">
+                      <p class="text-sm font-semibold text-dark">{a.name}</p>
+                      <p class="text-xs text-text-light">{a.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          <Image
+            src={coverImage}
+            alt={cover.alt}
+            width={1200}
+            height={630}
+            class="mt-10 w-full max-h-[430px] object-cover rounded-3xl border border-border shadow-xl shadow-primary/10"
+            loading="eager"
+          />
+        </div>
+      </header>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
+          <div class="blog-prose">
+            <slot />
+
+            {faq.length > 0 && (
+              <section class="blog-faq mt-14" aria-labelledby="faq-title">
+                <h2 id="faq-title">{copy.faqHeading}</h2>
+                <div class="space-y-4">
+                  {faq.map((item) => (
+                    <details class="group rounded-xl border border-border bg-white p-5 shadow-sm">
+                      <summary class="cursor-pointer list-none font-semibold text-dark flex items-start justify-between gap-4">
+                        {item.question}
+                        <span class="text-primary group-open:rotate-45 transition-transform">+</span>
+                      </summary>
+                      <p class="mt-3 text-text-light">{item.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+
+          <aside class="lg:sticky lg:top-24 space-y-6">
+            {tocHeadings.length > 1 && (
+              <nav class="rounded-2xl border border-border bg-white p-6 shadow-sm" aria-label={copy.onThisPage}>
+                <p class="text-sm font-semibold text-dark mb-3">{copy.onThisPage}</p>
+                <ol class="blog-toc space-y-2 text-sm">
+                  {tocHeadings.map((h, i) => (
+                    <li>
+                      <a href={`#${h.slug}`} class="text-text-light hover:text-primary transition-colors flex gap-2">
+                        <span class="text-primary/60 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                        <span>{h.text}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+            {tags.length > 0 && (
+              <div class="rounded-2xl border border-border bg-white p-6 shadow-sm">
+                <p class="text-sm font-semibold text-dark mb-3">{copy.inThisArticle}</p>
+                <div class="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-light text-text-light border border-border">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div class="rounded-2xl bg-dark text-white p-6 overflow-hidden relative">
+              <div class="absolute -right-12 -top-12 w-32 h-32 rounded-full bg-accent/20 blur-2xl"></div>
+              <div class="absolute -left-12 -bottom-12 w-32 h-32 rounded-full bg-primary/30 blur-2xl"></div>
+              <div class="relative">
+                <p class="text-sm text-white/60 mb-2">{copy.auditEyebrow}</p>
+                <h2 class="text-2xl font-semibold mb-3">{copy.auditHeading}</h2>
+                <p class="text-white/70 text-sm mb-5">
+                  {copy.auditDescription}
+                </p>
+                <a href={`${homeBase}#contact`} class="btn btn-accent w-full">{copy.auditCta}</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      {related.length > 0 && (
+        <section class="bg-light border-t border-border py-14 lg:py-20">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-4 mb-10">
+              <span class="h-px flex-1 bg-border"></span>
+              <h2 class="text-2xl font-bold text-dark">{copy.relatedHeading}</h2>
+              <span class="h-px flex-1 bg-border"></span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+              {related.map((r) => (
+                <a href={`${blogBase}${r.slug}/`} class="card card-hover p-7 group">
+                  <div class="flex items-center justify-between gap-4 mb-5">
+                    <span class="badge">{r.category}</span>
+                    <span class="text-sm text-text-light">{r.readTime}</span>
+                  </div>
+                  <h3 class="text-2xl font-semibold text-dark mb-3 group-hover:text-primary transition-colors">
+                    {r.title}
+                  </h3>
+                  <p class="text-text-light leading-relaxed mb-5">
+                    {r.description}
+                  </p>
+                  <span class="inline-flex items-center gap-2 text-primary font-medium">
+                    {copy.readArticle}
+                    <span class="group-hover:translate-x-1 transition-transform">→</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </article>
+  </main>
+  <Footer />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+</Layout>
+
+<style>
+  .blog-prose {
+    color: var(--color-text);
+    font-size: 1.075rem;
+    line-height: 1.8;
+  }
+
+  .blog-prose :global(h2) {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+    font-size: clamp(1.75rem, 3vw, 2.35rem);
+    line-height: 1.15;
+    scroll-margin-top: 6rem;
+  }
+
+  .blog-prose :global(p) {
+    margin: 1rem 0;
+  }
+
+  .blog-prose :global(ul) {
+    margin: 1.25rem 0;
+    padding-left: 1.25rem;
+  }
+
+  .blog-prose :global(li) {
+    margin: 0.45rem 0;
+    padding-left: 0.25rem;
+  }
+
+  .blog-prose :global(strong) {
+    color: var(--color-dark);
+  }
+
+  .blog-prose :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  .blog-prose :global(a:hover) {
+    color: var(--color-primary-dark);
+  }
+
+  .blog-toc li a.is-active {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  function initTocSpy() {
+    const tocLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.blog-toc a[href^="#"]'));
+    if (!tocLinks.length) return;
+    const sections = tocLinks
+      .map((a) => document.getElementById(decodeURIComponent(a.getAttribute('href')!.slice(1))))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (!sections.length) return;
+
+    function setActive(id: string) {
+      tocLinks.forEach((a) => {
+        const isActive = a.getAttribute('href') === `#${id}`;
+        a.classList.toggle('is-active', isActive);
+      });
+    }
+
+    let ticking = false;
+    function update() {
+      const marker = window.scrollY + 140;
+      let current = sections[0].id;
+      for (const s of sections) {
+        if (s.offsetTop <= marker) current = s.id;
+      }
+      setActive(current);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTocSpy);
+  } else {
+    initTocSpy();
+  }
+  document.addEventListener('astro:page-load', initTocSpy);
+</script>
