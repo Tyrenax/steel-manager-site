@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { Locale } from '../i18n/languages';
 import { Image } from 'astro:assets';
-import { getBlogCoverImage } from '../utils/blogImages';
+import { getBlogCoverImage, isLogoCover } from '../utils/blogImages';
 
 const locale = (Astro.currentLocale ?? 'fr') as Locale;
 const blogBase = locale === 'fr' ? '/blog/' : '/en/blog/';
@@ -34,14 +34,9 @@ const copy = {
 <section id="blog" class="blog-preview-section section-anchor-line overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="blog-editorial-shell">
-      <div class="blog-kicker" data-aos="fade-up">
-        <span class="blog-kicker-line"></span>
-        <span>{copy.badge}</span>
-      </div>
-
       <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 lg:gap-10 items-stretch">
         <div class="blog-editorial-panel" data-aos="fade-up">
-          <p class="text-sm uppercase tracking-[0.28em] text-accent-dark font-semibold mb-5">DevTeix Journal</p>
+          <p class="badge mb-5" style="color: var(--color-accent);">{copy.badge}</p>
           <h2 class="text-4xl sm:text-5xl font-bold text-white mb-5">
             {copy.heading}
           </h2>
@@ -71,7 +66,7 @@ const copy = {
               data-aos="fade-up"
               data-aos-delay={index * 80}
             >
-              <div class="blog-card-image">
+              <div class:list={['blog-card-image', isLogoCover(post.slug) && 'blog-card-image--logo']}>
                 <Image
                   src={getBlogCoverImage(post.slug)}
                   alt={post.data.cover.alt}
@@ -105,10 +100,7 @@ const copy = {
 <style>
   .blog-preview-section {
     padding: 5rem 0;
-    background:
-      radial-gradient(900px 420px at 15% 0%, rgba(6, 214, 160, 0.16), transparent 62%),
-      radial-gradient(900px 520px at 95% 80%, rgba(67, 97, 238, 0.16), transparent 62%),
-      linear-gradient(180deg, #101421 0%, #f6f8fd 54%, #ffffff 100%);
+    background: var(--color-light);
   }
 
   .blog-editorial-shell {
@@ -137,22 +129,9 @@ const copy = {
     position: relative;
     overflow: hidden;
     min-height: 100%;
-    border-radius: 2rem;
+    border-radius: 1rem;
     padding: clamp(1.75rem, 3vw, 2.6rem);
-    background:
-      linear-gradient(135deg, rgba(67, 97, 238, 0.22), rgba(6, 214, 160, 0.08)),
-      linear-gradient(145deg, #171b2b 0%, #23283d 100%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 30px 80px rgba(11, 17, 34, 0.22);
-  }
-
-  .blog-editorial-panel::after {
-    content: "";
-    position: absolute;
-    inset: auto -20% -40% 20%;
-    height: 18rem;
-    background: radial-gradient(circle, rgba(6, 214, 160, 0.2), transparent 62%);
-    pointer-events: none;
+    background: var(--color-dark);
   }
 
   .blog-topic-pill {
@@ -176,15 +155,11 @@ const copy = {
     position: relative;
     display: block;
     overflow: hidden;
-    border-radius: 1.35rem;
-    border: 1px solid rgba(226, 232, 240, 0.9);
-    background:
-      linear-gradient(90deg, rgba(67, 97, 238, 0.055) 1px, transparent 1px),
-      linear-gradient(#ffffff, #ffffff);
-    background-size: 28px 28px, auto;
+    border-radius: 1rem;
+    border: 1px solid var(--color-border);
+    background: #ffffff;
     padding: 1.55rem;
-    box-shadow: 0 18px 48px rgba(26, 29, 41, 0.08);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
   }
 
   .blog-card-image {
@@ -201,8 +176,13 @@ const copy = {
     transition: transform 0.5s ease;
   }
 
-  .blog-paper-card:hover .blog-card-image img {
-    transform: scale(1.05);
+  .blog-card-image--logo {
+    background: #ffffff;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .blog-card-image--logo img {
+    object-fit: contain;
   }
 
   .blog-paper-card-featured {
@@ -210,17 +190,11 @@ const copy = {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background:
-      radial-gradient(420px 220px at 100% 0%, rgba(6, 214, 160, 0.14), transparent 64%),
-      linear-gradient(90deg, rgba(67, 97, 238, 0.055) 1px, transparent 1px),
-      linear-gradient(#ffffff, #ffffff);
-    background-size: auto, 28px 28px, auto;
   }
 
   .blog-paper-card:hover {
-    transform: translateY(-4px) rotate(-0.35deg);
-    border-color: rgba(67, 97, 238, 0.28);
-    box-shadow: 0 28px 70px rgba(67, 97, 238, 0.14);
+    border-color: var(--color-gray-light);
+    box-shadow: 0 6px 20px -10px rgba(26, 29, 41, 0.18);
   }
 
   .blog-card-category {

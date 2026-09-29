@@ -18,9 +18,9 @@ const otherPosts = posts.filter((post) => post.id !== featured.id);
   description="Guides terrain pour digitaliser la production industrielle, connecter vos outils, améliorer la traçabilité et construire des logiciels métier réellement adaptés à l'atelier."
 >
   <Header />
-  <main class="pt-28 lg:pt-32">
+  <main>
     <section class="blog-index-hero overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[9rem] pb-10 lg:pt-[11rem] lg:pb-12">
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
           <div class="max-w-3xl">
             <div class="blog-index-label mb-3">
@@ -41,7 +41,7 @@ const otherPosts = posts.filter((post) => post.id !== featured.id);
     {featured && (
       <section class="blog-index-body py-8 lg:py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <a href={`/blog/${featured.slug}/`} class="group grid lg:grid-cols-[1.15fr_0.85fr] gap-0 rounded-[2rem] overflow-hidden border border-border bg-white shadow-xl shadow-primary/5 hover:shadow-2xl hover:shadow-primary/10 transition-shadow">
+          <a href={`/blog/${featured.slug}/`} class="group grid lg:grid-cols-[1.15fr_0.85fr] gap-0 rounded-2xl overflow-hidden border border-border bg-white hover:border-gray-light transition-colors">
             <div class="p-7 lg:p-9">
               <div class="flex flex-wrap items-center gap-3 mb-4">
                 <span class="badge badge-accent">Article pilier</span>
@@ -64,7 +64,8 @@ const otherPosts = posts.filter((post) => post.id !== featured.id);
                 alt={featured.data.cover.alt}
                 width={900}
                 height={620}
-                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class:list={['absolute inset-0 w-full h-full', isLogoCover(featured.slug) ? 'object-contain bg-white' : 'object-cover']}
+                style="height: 100%;"
                 loading="eager"
               />
             </div>
@@ -78,19 +79,16 @@ const otherPosts = posts.filter((post) => post.id !== featured.id);
         <div class="grid md:grid-cols-2 gap-6">
           {otherPosts.map((post) => (
             <a href={`/blog/${post.slug}/`} class="card card-hover overflow-hidden group">
-              <div class="relative h-56 overflow-hidden bg-dark">
+              <div class="relative h-56 overflow-hidden bg-light border-b border-border">
                 <Image
                   src={getBlogCoverImage(post.slug)}
                   alt={post.data.cover.alt}
                   width={700}
                   height={420}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  class:list={['w-full h-full', isLogoCover(post.slug) ? 'object-contain bg-white' : 'object-cover']}
                   style="height: 100%;"
                   loading="lazy"
                 />
-                {!isLogoCover(post.slug) && (
-                  <div class="absolute inset-0 bg-gradient-to-t from-dark/55 to-transparent"></div>
-                )}
               </div>
               <div class="p-7">
               <div class="flex items-center justify-between gap-4 mb-5">
@@ -119,10 +117,7 @@ const otherPosts = posts.filter((post) => post.id !== featured.id);
 
 <style>
   .blog-index-hero {
-    background:
-      radial-gradient(900px 520px at 15% 0%, rgba(6, 214, 160, 0.16), transparent 64%),
-      radial-gradient(900px 560px at 100% 40%, rgba(67, 97, 238, 0.2), transparent 62%),
-      linear-gradient(145deg, #111522 0%, #1d2234 58%, #101421 100%);
+    background: var(--color-dark);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
@@ -140,7 +135,7 @@ const otherPosts = posts.filter((post) => post.id !== featured.id);
   .blog-index-label span {
     width: 4rem;
     height: 1px;
-    background: linear-gradient(90deg, var(--color-accent), transparent);
+    background: var(--color-accent);
   }
 
   .blog-index-note {
@@ -152,10 +147,6 @@ const otherPosts = posts.filter((post) => post.id !== featured.id);
   }
 
   .blog-index-body {
-    background:
-      linear-gradient(90deg, rgba(67, 97, 238, 0.025) 1px, transparent 1px),
-      linear-gradient(rgba(67, 97, 238, 0.025) 1px, transparent 1px),
-      #ffffff;
-    background-size: 32px 32px;
+    background: #ffffff;
   }
 </style>

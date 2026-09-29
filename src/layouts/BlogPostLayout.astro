@@ -194,10 +194,9 @@ const authorLine = authors
 <Layout title={seoTitle ?? title} description={description} canonical={canonical} ogType="article" ogImage={coverUrl}>
   <Header />
   <main>
-    <article class="pt-28 lg:pt-32">
+    <article>
       <header class="relative overflow-hidden section-hero border-b border-border">
-        <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-[10.5rem] pb-14 lg:pt-[13rem] lg:pb-20">
           <nav aria-label="Breadcrumb" class="mb-6">
             <ol class="flex flex-wrap items-center gap-1.5 text-sm text-text-light">
               <li><a href={homeBase} class="hover:text-primary transition-colors">{copy.home}</a></li>

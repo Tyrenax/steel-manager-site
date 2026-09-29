@@ -22,15 +22,13 @@ const clients = [
 ];
 ---
 
-<section class="relative min-h-[84vh] flex items-center section-hero overflow-hidden">
-  <!-- Subtle grid pattern -->
-  <div class="absolute inset-0 opacity-[0.015]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%234361ee&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+<section class="relative lg:min-h-[78vh] flex items-center section-hero overflow-hidden">
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 lg:pt-32 lg:pb-20 relative z-10 w-full">
 
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
       <!-- Content -->
-      <div class="order-2 lg:order-1">
+      <div>
 
         <!-- Badge -->
         <div
@@ -107,30 +105,12 @@ const clients = [
 
       <!-- Right side - Software screenshot in browser frame -->
       <div
-        class="order-1 lg:order-2 relative"
+        class="relative"
         data-aos="fade-left"
         data-aos-duration="500"
         data-aos-delay="100"
       >
-        <!-- Glow effects behind -->
-        <div class="absolute -top-8 -right-8 w-48 h-48 rounded-full -z-10" style="background: radial-gradient(circle, rgba(67,97,238,0.18) 0%, transparent 70%);"></div>
-        <div class="absolute -bottom-6 -left-6 w-36 h-36 rounded-full -z-10" style="background: radial-gradient(circle, rgba(6,214,160,0.12) 0%, transparent 70%);"></div>
-
-        <!-- Browser frame -->
-        <div class="relative rounded-xl overflow-hidden shadow-2xl shadow-primary/15" style="transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);">
-          <!-- macOS title bar -->
-          <div class="flex items-center gap-2 px-4 py-2.5" style="background: #252836; border-bottom: 1px solid rgba(255,255,255,0.06);">
-            <div class="flex gap-1.5">
-              <div class="w-2.5 h-2.5 rounded-full" style="background: #ff5f57;"></div>
-              <div class="w-2.5 h-2.5 rounded-full" style="background: #febc2e;"></div>
-              <div class="w-2.5 h-2.5 rounded-full" style="background: #28c840;"></div>
-            </div>
-            <div class="flex-1 mx-3">
-              <div class="h-5 rounded-md flex items-center px-3" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06);">
-                <span class="text-[10px]" style="color: rgba(255,255,255,0.3);">app.steelmanager.be</span>
-              </div>
-            </div>
-          </div>
+        <div class="relative rounded-xl overflow-hidden border border-border shadow-xl shadow-dark/10">
           <!-- Screenshot -->
           <Image
             src={heroImg}
@@ -145,29 +125,10 @@ const clients = [
           />
         </div>
 
-        <!-- Floating badge -->
-        <div class="absolute -bottom-4 -left-4 lg:-left-8 bg-white rounded-lg shadow-lg px-4 py-3 border border-border hidden sm:flex items-center gap-3" data-aos="fade-up" data-aos-delay="400">
-          <div class="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center">
-            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <div class="text-xs font-semibold text-dark">{t('hero.floatingBadge.title')}</div>
-            <div class="text-[10px] text-text-light">{t('hero.floatingBadge.subtitle')}</div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2">
-    <span class="text-xs text-text-light">{t('hero.scroll')}</span>
-    <div class="w-5 h-8 rounded-full border-2 border-border flex justify-center pt-1.5">
-      <div class="w-1 h-2 rounded-full bg-primary animate-bounce"></div>
-    </div>
-  </div>
 </section>
 
 <!-- Trust bar - Ils nous font confiance -->

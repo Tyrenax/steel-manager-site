@@ -15,9 +15,9 @@ const markersJson = JSON.stringify(countries.map(c => ({ lat: c.lat, lng: c.lng,
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-center">
       <div data-aos="fade-right" data-aos-duration="400">
-        <span class="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-md bg-[#009CFF]/10 text-[#009CFF] border border-[#009CFF]/20 mb-5">{t('international.badge')}</span>
+        <span class="badge mb-5" style="color: #009CFF;">{t('international.badge')}</span>
         <h2 class="text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight">
-          {t('international.heading.prefix')}<span style="background: linear-gradient(135deg, #009CFF, #06d6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{t('international.heading.highlight')}</span>{t('international.heading.suffix')}
+          {t('international.heading.prefix')}<span style="color: #009CFF;">{t('international.heading.highlight')}</span>{t('international.heading.suffix')}
         </h2>
         <p class="text-white/60 text-lg leading-relaxed mb-7 max-w-2xl">
           {t('international.description')}
@@ -55,7 +55,7 @@ const markersJson = JSON.stringify(countries.map(c => ({ lat: c.lat, lng: c.lng,
 
       <!-- Globe 3D hologramme -->
       <div
-        class="relative intl-visual"
+        class="relative intl-visual hidden lg:block"
         data-aos="fade-left"
         data-aos-duration="450"
       >
@@ -128,7 +128,8 @@ const markersJson = JSON.stringify(countries.map(c => ({ lat: c.lat, lng: c.lng,
 <script is:inline define:vars={{ markersJson }}>
   function initHologramGlobe() {
     var container = document.getElementById('earth-globe');
-    if (!container || container.dataset.initialized) return;
+    // Globe masqué sur mobile : pas de WebGL tant qu'il n'est pas affiché
+    if (!container || container.dataset.initialized || !container.offsetWidth) return;
     container.dataset.initialized = 'true';
 
     window.__hologramEarth = null;
@@ -249,4 +250,5 @@ const markersJson = JSON.stringify(countries.map(c => ({ lat: c.lat, lng: c.lng,
     initHologramGlobe();
   }
   document.addEventListener('astro:page-load', initHologramGlobe);
+  window.addEventListener('resize', initHologramGlobe);
 </script>

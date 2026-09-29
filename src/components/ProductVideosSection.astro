@@ -45,7 +45,7 @@ const copy = {
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 lg:space-y-24">
     {copy.items.map((item, i) => (
       <div class="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center" data-aos="fade-up">
-        <div class={`relative rounded-xl overflow-hidden shadow-2xl shadow-primary/10 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+        <div class={`relative rounded-xl overflow-hidden border border-border shadow-xl shadow-dark/10 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
           <iframe
             class="w-full block rounded-xl"
             style="aspect-ratio: 16/9; background: var(--color-dark);"

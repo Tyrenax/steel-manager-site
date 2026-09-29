@@ -40,16 +40,13 @@ const icons: Record<string, string> = {
             <div class="hidden lg:block absolute top-8 left-full w-full h-px bg-border -translate-x-1/2 z-0"></div>
           )}
 
-          <div class="relative bg-white/90 border border-border rounded-xl p-5 h-full hover:border-primary/35 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-            <div class="absolute top-0 left-0 right-0 h-1" style="background: linear-gradient(90deg, rgba(67,97,238,0.5) 0%, rgba(6,214,160,0.45) 100%);"></div>
+          <div class="relative bg-white border border-border rounded-xl p-5 h-full">
             <!-- Step number -->
             <div class="flex items-center justify-between mb-4">
-              <span class="text-4xl font-bold" style="background: linear-gradient(135deg, rgba(67,97,238,0.28), rgba(6,214,160,0.25)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">{step.number}</span>
-              <div class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center">
-                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                  <Fragment set:html={icons[step.icon]} />
-                </svg>
-              </div>
+              <span class="text-sm font-semibold text-primary tabular-nums">{step.number}</span>
+              <svg class="w-5 h-5 text-text-light" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                <Fragment set:html={icons[step.icon]} />
+              </svg>
             </div>
 
             <!-- Content -->

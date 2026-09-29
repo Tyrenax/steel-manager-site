@@ -19,8 +19,8 @@ export function getBlogCoverImage(slug: string) {
   return blogCoverImages[slug as keyof typeof blogCoverImages] ?? industrialWorkerTablet;
 }
 
-// Couvertures de type logo sur fond blanc : pas de voile sombre par-dessus.
-const logoCovers = new Set(['controle-qualite-vision-industrielle']);
+// Couvertures de type logo : affichées entières sur fond blanc, jamais recadrées.
+const logoCovers = new Set(['controle-qualite-vision-industrielle', 'industrial-vision-quality-control']);
 
 export function isLogoCover(slug: string) {
   return logoCovers.has(slug);
