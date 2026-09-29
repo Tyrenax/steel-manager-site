@@ -75,13 +75,8 @@ const services = servicesData.map((s, i) => ({
               data-aos-delay="100"
             >
               <!-- Service number + icon -->
-              <div class="flex items-center gap-3 mb-5">
-                <div class="w-11 h-11 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                    <Fragment set:html={service.icon} />
-                  </svg>
-                </div>
-                <span class="text-sm font-semibold text-primary/40">0{index + 1}</span>
+              <div class="mb-4">
+                <span class="text-sm font-semibold text-primary tabular-nums">0{index + 1}</span>
               </div>
 
               <h3 class="text-2xl lg:text-3xl font-bold text-dark mb-4">

@@ -2,18 +2,26 @@
 import { useTranslations, getProcessLabels } from '../i18n/ui';
 import type { Locale } from '../i18n/languages';
 import { Image } from 'astro:assets';
+import atelierPhoto from '../assets/photos/atelier-tablette-ar.jpg';
+import production from '../assets/process/production.png';
+import optimisation from '../assets/process/optimisation.png';
+import cnc from '../assets/process/cnc.png';
+import stocks from '../assets/process/stocks.png';
+import achats from '../assets/process/achats.png';
+import ia from '../assets/process/ia.png';
+import planning from '../assets/process/planning.png';
+import livraison from '../assets/process/livraison.png';
+import modele3d from '../assets/process/3d.png';
+import temps from '../assets/process/temps.png';
+import qualite from '../assets/process/qualite.svg';
+import finance from '../assets/process/finance.svg';
 
 const locale = (Astro.currentLocale ?? 'fr') as Locale;
 const t = useTranslations(locale);
 const labels = getProcessLabels(locale);
 
-const iconPaths = [
-  '/images/13.png', '/images/14.png', '/images/15.png', '/images/16.png',
-  '/images/17.png', '/images/18.png', '/images/19.png', '/images/20.png',
-  '/images/21.png', '/images/22.png', '/images/23.png', '/images/24.png',
-];
-
-const solutions = labels.map((label, i) => ({ icon: iconPaths[i], label }));
+const icons = [production, optimisation, cnc, stocks, achats, ia, planning, livraison, modele3d, temps, qualite, finance];
+const solutions = labels.map((label, i) => ({ icon: icons[i], label }));
 ---
 
 <section id="processus" class="process-section process-section--gradient section-anchor-line section-spacing">
@@ -30,27 +38,28 @@ const solutions = labels.map((label, i) => ({ icon: iconPaths[i], label }));
       </p>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5 mb-9" data-aos="fade-up" data-aos-delay="90">
-      {solutions.map((solution) => (
-        <div class="process-item">
-          <Image
-            src={solution.icon}
-            alt={solution.label}
-            width={64}
-            height={64}
-            style="width: 64px; height: 64px; object-fit: contain;"
-            class="process-item__icon"
-          />
-          <span class="process-item__label">
-            {solution.label}
-          </span>
-        </div>
-      ))}
+    <div class="process-layout mb-9" data-aos="fade-up" data-aos-delay="90">
+      <figure class="process-photo">
+        <Image
+          src={atelierPhoto}
+          alt={locale === 'fr' ? 'Contrôle d’une pièce en atelier avec une tablette en réalité augmentée' : 'Checking a part on the shop floor with an augmented-reality tablet'}
+          width={720}
+          loading="lazy"
+          class="process-photo__img"
+        />
+      </figure>
+      <ul class="process-grid">
+        {solutions.map((solution) => (
+          <li class="process-item">
+            <Image src={solution.icon} alt="" width={96} height={96} class="process-item__icon" aria-hidden="true" />
+            <span class="process-item__label">{solution.label}</span>
+          </li>
+        ))}
+      </ul>
     </div>
 
     <div class="text-center" data-aos="fade-up" data-aos-delay="150">
       <a href="#contact" class="process-cta">
-        <span class="process-cta__dot"></span>
         <span class="process-cta__text">{t('process.cta')}</span>
         <svg class="process-cta__arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -70,36 +79,74 @@ const solutions = labels.map((label, i) => ({ icon: iconPaths[i], label }));
     background: var(--color-light);
   }
 
-  .process-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: 14px;
-    padding: 0.95rem 0.65rem;
-    border: 1px solid rgba(67, 97, 238, 0.12);
-    background: rgba(255, 255, 255, 0.74);
-    min-height: 132px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  /* Photo d'atelier + liste à filets fins, icônes au trait sans tuile */
+  .process-layout {
+    display: grid;
+    gap: 1.5rem;
+    align-items: stretch;
   }
 
-  .process-item:hover {
-    border-color: rgba(67, 97, 238, 0.28);
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 12px 20px -18px rgba(26, 29, 41, 0.6);
+  .process-photo {
+    margin: 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    min-height: 16rem;
+  }
+
+  .process-photo__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+    background: #ffffff;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .process-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.95rem 1.1rem;
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .process-item__icon {
-    filter: saturate(1.02);
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+    flex-shrink: 0;
   }
 
   .process-item__label {
     color: var(--color-dark);
-    font-size: 1.03rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin-top: 0.45rem;
     line-height: 1.2;
+  }
+
+  @media (min-width: 640px) {
+    .process-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .process-layout {
+      grid-template-columns: 0.85fr 1.15fr;
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .process-cta {
@@ -109,29 +156,21 @@ const solutions = labels.map((label, i) => ({ icon: iconPaths[i], label }));
     padding: 0.68rem 1.25rem;
     font-size: 0.96rem;
     font-weight: 500;
-    color: var(--color-accent-dark);
-    background: rgba(6, 214, 160, 0.08);
-    border: 1px solid rgba(6, 214, 160, 0.2);
-    border-radius: 999px;
+    color: var(--color-primary);
+    border-bottom: 1px solid currentColor;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
     text-decoration: none;
     transition: all 0.25s ease;
   }
 
   .process-cta:hover {
-    background: rgba(6, 214, 160, 0.13);
-    border-color: rgba(6, 214, 160, 0.32);
+    color: var(--color-primary-dark);
   }
 
   .process-cta__text {
     white-space: nowrap;
-  }
-
-  .process-cta__dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    flex-shrink: 0;
   }
 
   .process-cta__arrow {
@@ -147,8 +186,7 @@ const solutions = labels.map((label, i) => ({ icon: iconPaths[i], label }));
 
   @media (max-width: 520px) {
     .process-item {
-      min-height: 120px;
-      padding: 0.85rem 0.45rem;
+      padding: 0.9rem 0.85rem;
     }
 
     .process-item__label {
@@ -157,7 +195,7 @@ const solutions = labels.map((label, i) => ({ icon: iconPaths[i], label }));
 
     .process-cta {
       font-size: 0.84rem;
-      padding: 0.62rem 0.95rem;
+      padding: 0.62rem 0;
       gap: 0.42rem;
     }
   }

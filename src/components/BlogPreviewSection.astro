@@ -36,7 +36,7 @@ const copy = {
     <div class="blog-editorial-shell">
       <div class="grid lg:grid-cols-[0.72fr_1.28fr] gap-8 lg:gap-10 items-stretch">
         <div class="blog-editorial-panel" data-aos="fade-up">
-          <p class="badge mb-5" style="color: var(--color-accent);">{copy.badge}</p>
+          <p class="blog-eyebrow mb-5">{copy.badge}</p>
           <h2 class="text-4xl sm:text-5xl font-bold text-white mb-5">
             {copy.heading}
           </h2>
@@ -132,6 +132,27 @@ const copy = {
     border-radius: 1rem;
     padding: clamp(1.75rem, 3vw, 2.6rem);
     background: var(--color-dark);
+  }
+
+  .blog-eyebrow {
+    color: var(--color-accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Bouton plat, texte foncé : le blanc n'est pas lisible sur le turquoise */
+  .blog-editorial-panel .btn-accent {
+    background: var(--color-accent);
+    color: var(--color-dark);
+    font-weight: 600;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .blog-editorial-panel .btn-accent:hover {
+    background: var(--color-accent-dark);
   }
 
   .blog-topic-pill {

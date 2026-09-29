@@ -37,17 +37,13 @@ const icons: Record<string, string> = {
         >
           <!-- Connector line (hidden on last item and mobile) -->
           {index < steps.length - 1 && (
-            <div class="hidden lg:block absolute top-8 left-full w-full h-px bg-border -translate-x-1/2 z-0"></div>
+            <div class="hidden lg:block absolute top-5 left-5 w-full h-px bg-primary/25 z-0" aria-hidden="true"></div>
           )}
 
-          <div class="relative bg-white border border-border rounded-xl p-5 h-full">
-            <!-- Step number -->
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-sm font-semibold text-primary tabular-nums">{step.number}</span>
-              <svg class="w-5 h-5 text-text-light" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
-                <Fragment set:html={icons[step.icon]} />
-              </svg>
-            </div>
+          <!-- Frise : pastille numérotée reliée à l'étape suivante -->
+          <span class="relative z-10 mb-4 flex w-10 h-10 items-center justify-center rounded-full border-2 border-primary bg-white text-sm font-semibold text-primary tabular-nums">{step.number}</span>
+
+          <div class="relative bg-white border border-border rounded-xl p-5">
 
             <!-- Content -->
             <h3 class="text-lg font-semibold text-dark mb-2 tracking-[-0.01em]">
