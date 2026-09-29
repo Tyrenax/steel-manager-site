@@ -4,7 +4,8 @@ import type { Locale } from '../i18n/languages';
 
 const locale = (Astro.currentLocale ?? 'fr') as Locale;
 const t = useTranslations(locale);
-const videoSrc = locale === 'fr' ? '/video/devteixpres.web.mp4#t=1' : '/video/DevTeixpre_ENG.mp4#t=1';
+const youtubeId = 'xFfIj4Acjso';
+const videoSrc = '/video/DevTeixpre_ENG.mp4#t=1';
 ---
 
 <section class="section-soft section-spacing overflow-hidden">
@@ -35,16 +36,29 @@ const videoSrc = locale === 'fr' ? '/video/devteixpres.web.mp4#t=1' : '/video/De
       <!-- Glow behind -->
       <div class="absolute -inset-4 -z-10 rounded-2xl" style="background: radial-gradient(ellipse at center, rgba(67,97,238,0.08) 0%, transparent 70%);"></div>
 
-      <video
-        class="w-full h-auto block rounded-xl"
-        controls
-        preload="metadata"
-        poster=""
-        style="aspect-ratio: 16/9; background: var(--color-dark);"
-      >
-        <source src={videoSrc} type="video/mp4" />
-        {t('video.fallback')}
-      </video>
+      {locale === 'fr' ? (
+        <iframe
+          class="w-full block rounded-xl"
+          style="aspect-ratio: 16/9; background: var(--color-dark);"
+          src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+          title="DevTeix"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      ) : (
+        <video
+          class="w-full h-auto block rounded-xl"
+          controls
+          preload="metadata"
+          poster=""
+          style="aspect-ratio: 16/9; background: var(--color-dark);"
+        >
+          <source src={videoSrc} type="video/mp4" />
+          {t('video.fallback')}
+        </video>
+      )}
     </div>
 
   </div>
