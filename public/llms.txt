@@ -19,6 +19,7 @@ Articles (FR):
 - Digitalisation de la production industrielle: https://devteix.com/blog/digitalisation-production-industrielle/
 - 8 défis de gestion de production: https://devteix.com/blog/defis-gestion-production-industrie/
 - Calcul des temps de production avec l'IA: https://devteix.com/blog/calcul-temps-production-ia/
+- Contrôle qualité par vision industrielle (Quality Manager): https://devteix.com/blog/controle-qualite-vision-industrielle/
 
 Articles (EN):
 - Industrial production digitalization: https://devteix.com/en/blog/industrial-production-digitalization/

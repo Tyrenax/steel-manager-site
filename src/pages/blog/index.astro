@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { Image } from 'astro:assets';
-import { getBlogCoverImage } from '../../utils/blogImages';
+import { getBlogCoverImage, isLogoCover } from '../../utils/blogImages';
 
 const posts = (await getCollection('blog'))
   .filter((p) => p.data.language === 'fr')
@@ -85,9 +85,12 @@ const otherPosts = posts.filter((post) => post.id !== featured.id);
                   width={700}
                   height={420}
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  style="height: 100%;"
                   loading="lazy"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-dark/55 to-transparent"></div>
+                {!isLogoCover(post.slug) && (
+                  <div class="absolute inset-0 bg-gradient-to-t from-dark/55 to-transparent"></div>
+                )}
               </div>
               <div class="p-7">
               <div class="flex items-center justify-between gap-4 mb-5">

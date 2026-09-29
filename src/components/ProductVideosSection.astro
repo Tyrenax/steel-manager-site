@@ -1,0 +1,70 @@
+---
+import type { Locale } from '../i18n/languages';
+
+const locale = (Astro.currentLocale ?? 'fr') as Locale;
+
+const copy = {
+  fr: {
+    items: [
+      {
+        id: 'XpB13EQ-P6w',
+        start: 13,
+        badge: 'Quality Manager',
+        title: 'Contrôle qualité par caméra',
+        text: "Notre solution Quality Manager transforme vos caméras en un contrôle qualité automatique et permanent. Fini les contrôles visuels aléatoires ou fatigants : chaque élément est analysé en temps réel, directement sur votre ligne, quel que soit votre secteur d'activité.",
+      },
+      {
+        id: 'awNIR7TTaBA',
+        badge: 'Steel Manager',
+        title: 'IA Steel Manager',
+        text: "Le module IA de Steel Manager apprend de vos données de production réelles : chaque pièce fabriquée, chaque temps relevé en atelier vient affiner le calcul. Résultat, des temps théoriques fiables, propres à votre atelier, pour une planification de charge réaliste et des devis qui tiennent la route.",
+      },
+    ],
+  },
+  en: {
+    items: [
+      {
+        id: 'XpB13EQ-P6w',
+        start: 13,
+        badge: 'Quality Manager',
+        title: 'Camera-based quality control',
+        text: 'Our Quality Manager solution turns your cameras into automatic, permanent quality control. No more random or tiring visual checks: every item is analysed in real time, right on your line, whatever your industry.',
+      },
+      {
+        id: 'awNIR7TTaBA',
+        badge: 'Steel Manager',
+        title: 'Steel Manager AI',
+        text: "Steel Manager's AI module learns from your real production data: every part made and every time recorded on the shop floor refines the calculation. The result: reliable theoretical times specific to your workshop, for realistic load planning and quotes you can stand behind.",
+      },
+    ],
+  },
+}[locale];
+---
+
+<section class="section-soft section-spacing overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 lg:space-y-24">
+    {copy.items.map((item, i) => (
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center" data-aos="fade-up">
+        <div class={`relative rounded-xl overflow-hidden shadow-2xl shadow-primary/10 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+          <iframe
+            class="w-full block rounded-xl"
+            style="aspect-ratio: 16/9; background: var(--color-dark);"
+            src={`https://www.youtube-nocookie.com/embed/${item.id}${item.start ? `?start=${item.start}` : ''}`}
+            title={item.title}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class={i % 2 === 1 ? 'lg:order-1' : ''}>
+          <div class="badge badge-primary mb-4">
+            <span>{item.badge}</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-dark mb-4">{item.title}</h2>
+          <p class="text-text-light text-lg leading-relaxed">{item.text}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
